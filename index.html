@@ -3,538 +3,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Финансовая Грамотность | Защита от Мошенников</title>
+    <title>Portfolio — Liquid Glass</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #e8e8e8;
+            --text-secondary: #a0a0a0;
+            --accent-silver: #c0c0c0;
+            --dark-bg: #0a0a0a;
+            --medium-bg: #1a1a1a;
+            --blur-amount: 20px;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
-            color: #1b5e20;
+            font-family: 'Cormorant', serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
+            color: var(--text-primary);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Liquid Glass Effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(27, 94, 32, 0.15);
+        /* Background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
         }
 
-        .glass-strong {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            box-shadow: 0 12px 40px rgba(27, 94, 32, 0.2);
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(192, 192, 192, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
         }
 
-        /* Header */
-        header {
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-            margin: 20px auto;
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(40px, -40px) scale(1.15); opacity: 0.4; }
+            50% { transform: translate(-30px, 30px) scale(0.85); opacity: 0.25; }
+            75% { transform: translate(30px, 15px) scale(1.08); opacity: 0.35; }
+        }
+
+        .container {
             max-width: 1200px;
-            padding: 0 20px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 1;
         }
 
-        nav {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Glass card effect */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2e7d32;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transition: left 0.8s ease;
         }
 
-        .logo::before {
-            content: "🛡️";
-            font-size: 32px;
+        .glass-card:hover::before {
+            left: 100%;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: #1b5e20;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            border-radius: 10px;
-        }
-
-        .nav-links a:hover {
-            background: rgba(46, 125, 50, 0.2);
-            color: #2e7d32;
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         /* Hero Section */
         .hero {
-            max-width: 1200px;
-            margin: 60px auto;
-            padding: 80px 40px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            color: #1b5e20;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: #2e7d32;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(46, 125, 50, 0.4);
-        }
-
-        /* Content Sections */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section {
-            margin: 60px 0;
-            padding: 60px 40px;
-        }
-
-        .section h2 {
-            font-size: 42px;
-            color: #1b5e20;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .card {
-            padding: 40px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 16px 50px rgba(27, 94, 32, 0.25);
-        }
-
-        .card-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-
-        .card h3 {
-            font-size: 24px;
-            color: #2e7d32;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: #388e3c;
-            line-height: 1.6;
-            font-size: 16px;
-        }
-
-        /* Warning Section */
-        .warning-section {
-            background: linear-gradient(135deg, rgba(255, 245, 157, 0.3), rgba(255, 235, 59, 0.2));
-        }
-
-        .warning-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .warning-item {
-            padding: 25px 30px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
+            position: relative;
+            padding: 120px 0;
         }
 
-        .warning-icon {
-            font-size: 36px;
-            flex-shrink: 0;
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
         }
 
-        .warning-text {
-            flex: 1;
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #808080 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.2s ease-out forwards, titlePulse 4s ease-in-out 2s infinite;
+            opacity: 0;
         }
 
-        .warning-text h4 {
-            color: #f57f17;
-            font-size: 20px;
-            margin-bottom: 8px;
+        @keyframes titlePulse {
+            0%, 100% { 
+                filter: brightness(1);
+                transform: translateY(0);
+            }
+            50% { 
+                filter: brightness(1.2);
+                transform: translateY(-2px);
+            }
         }
 
-        .warning-text p {
-            color: #558b2f;
-            font-size: 15px;
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
         }
 
-        /* Tips Section */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
+        .hero-description {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--accent-silver);
+            margin-top: 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+            opacity: 0;
         }
 
-        .tip-card {
-            padding: 30px;
+        /* Section Styling */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        section > .container > .section-title {
+            margin-bottom: 80px;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            color: var(--text-secondary);
+            line-height: 2;
             text-align: center;
         }
 
-        .tip-number {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #43a047, #2e7d32);
-            color: white;
-            border-radius: 50%;
-            line-height: 50px;
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
         }
 
-        .tip-card h4 {
-            color: #2e7d32;
-            font-size: 18px;
+        .skill-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            -webkit-backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .skill-card:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 70%);
+            animation: pulseGlow 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .skill-card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .skill-icon {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60px;
+        }
+
+        .skill-icon svg {
+            color: var(--accent-silver);
+            transition: all 0.4s ease;
+        }
+
+        .skill-card:hover .skill-icon svg {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        .skill-name {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            color: var(--accent-silver);
         }
 
-        .tip-card p {
-            color: #388e3c;
-            font-size: 14px;
-            line-height: 1.5;
+        .skill-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            font-family: 'Space Mono', monospace;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 16px 32px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur-amount));
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .contact-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Footer */
         footer {
-            margin: 80px auto 40px;
-            max-width: 1200px;
-            padding: 40px;
             text-align: center;
+            padding: 60px 0;
+            color: var(--text-secondary);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
         }
 
-        footer p {
-            color: #2e7d32;
-            font-size: 16px;
-        }
-
-        /* Floating Elements */
-        .floating-shape {
-            position: fixed;
-            border-radius: 50%;
-            background: rgba(129, 199, 132, 0.3);
-            backdrop-filter: blur(10px);
-            z-index: -1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape1 {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-        }
-
-        .shape2 {
-            width: 150px;
-            height: 150px;
-            top: 50%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .shape3 {
-            width: 100px;
-            height: 100px;
-            bottom: 20%;
-            left: 15%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
+        /* Responsive */
+        @media (max-width: 968px) {
+            .container {
+                padding: 0 30px;
             }
-            33% {
-                transform: translateY(-20px) translateX(10px);
+
+            section {
+                padding: 80px 0;
             }
-            66% {
-                transform: translateY(10px) translateX(-10px);
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            .glass-card {
+                padding: 30px;
             }
         }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 20px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .nav-links {
-                display: none;
-            }
-
-            .section h2 {
-                font-size: 32px;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav {
-                padding: 15px 20px;
-            }
-
-            .section {
-                padding: 40px 20px;
+            .contact-link {
+                width: 100%;
+                max-width: 300px;
             }
         }
+
+        /* Scroll reveal animation delays */
+        .glass-card:nth-child(1) { transition-delay: 0.1s; }
+        .glass-card:nth-child(2) { transition-delay: 0.2s; }
+        .skill-card:nth-child(1) { transition-delay: 0.1s; }
+        .skill-card:nth-child(2) { transition-delay: 0.2s; }
+        .skill-card:nth-child(3) { transition-delay: 0.3s; }
+
     </style>
 </head>
 <body>
-    <!-- Floating Background Shapes -->
-    <div class="floating-shape shape1"></div>
-    <div class="floating-shape shape2"></div>
-    <div class="floating-shape shape3"></div>
-
-    <!-- Header -->
-    <header>
-        <nav class="glass">
-            <div class="logo">ФинЗащита</div>
-            <ul class="nav-links">
-                <li><a href="#about">О проекте</a></li>
-                <li><a href="#threats">Угрозы</a></li>
-                <li><a href="#tips">Советы</a></li>
-                <li><a href="#education">Обучение</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Background Particles -->
+    <div class="bg-particles" id="particles"></div>
 
     <!-- Hero Section -->
-    <div class="container">
-        <section class="hero glass-strong">
-            <h1>Финансовая Безопасность в Цифровую Эпоху</h1>
-            <p>Защитите свои деньги и личные данные от интернет-мошенников. Научитесь распознавать угрозы и принимать правильные финансовые решения.</p>
-            <button class="cta-button">Начать обучение</button>
-        </section>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">userhexov</h1>
+                <p class="hero-description">
+                    Создаю цифровые продукты на стыке искусства и технологий. 
+                    Минимализм, функциональность, внимание к деталям.
+                </p>
+            </div>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="section glass">
-            <h2>Почему это важно?</h2>
-            <div class="cards-grid">
-                <div class="card glass">
-                    <div class="card-icon">💰</div>
-                    <h3>Финансовая грамотность</h3>
-                    <p>Умение управлять деньгами, планировать бюджет и принимать обоснованные финансовые решения — ключ к благополучию.</p>
-                </div>
-                <div class="card glass">
-                    <div class="card-icon">🔒</div>
-                    <h3>Защита данных</h3>
-                    <p>Ваша личная информация стоит дорого. Научитесь защищать свои данные от злоумышленников и киберпреступников.</p>
-                </div>
-                <div class="card glass">
-                    <div class="card-icon">📱</div>
-                    <h3>Безопасность онлайн</h3>
-                    <p>Интернет-мошенничество растёт с каждым днём. Знание основных схем обмана поможет вам избежать потерь.</p>
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content glass-card">
+                <h2 class="section-title" style="margin-bottom: 40px;">Обо мне</h2>
+                <p class="about-text">
+                    Я специализируюсь на разработке современных веб-интерфейсов с фокусом на пользовательский опыт. 
+                    Работаю с передовыми технологиями, создавая решения, которые объединяют эстетику и производительность. 
+                    Каждый проект — это возможность создать что-то значимое и запоминающееся.
+                </p>
+                
+                <h2 class="section-title" style="margin-top: 80px; margin-bottom: 50px;">Контакты</h2>
+                <div class="contact-links">
+                    <a href="https://t.me/userhexov" class="contact-link">Telegram</a>
+                    <a href="https://github.com/userhexov" class="contact-link">GitHub</a>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Threats Section -->
-        <section id="threats" class="section glass warning-section">
-            <h2>Основные виды мошенничества</h2>
-            <div class="warning-list">
-                <div class="warning-item glass">
-                    <div class="warning-icon">⚠️</div>
-                    <div class="warning-text">
-                        <h4>Фишинг</h4>
-                        <p>Поддельные сайты и письма, имитирующие банки и сервисы. Никогда не переходите по ссылкам из подозрительных писем!</p>
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Стек</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="50" height="50" rx="8" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                            <path d="M15 20L20 25L15 30M25 30H35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                        </svg>
                     </div>
+                    <h3 class="skill-name">Bash</h3>
+                    <p class="skill-description">Shell Scripting · Automation · Unix Tools</p>
                 </div>
-                <div class="warning-item glass">
-                    <div class="warning-icon">📞</div>
-                    <div class="warning-text">
-                        <h4>Телефонное мошенничество</h4>
-                        <p>Звонки от "сотрудников банка" или "службы безопасности". Настоящие банки никогда не спрашивают PIN-код или CVV!</p>
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 15C20 15 25 12 30 12C35 12 40 15 40 15V28C40 28 35 31 30 31C25 31 20 28 20 28V15Z" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                            <path d="M20 32C20 32 25 29 30 29C35 29 40 32 40 32V45C40 45 35 48 30 48C25 48 20 45 20 45V32Z" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
+                            <circle cx="26" cy="20" r="1.5" fill="currentColor" opacity="0.6"/>
+                            <circle cx="34" cy="37" r="1.5" fill="currentColor" opacity="0.6"/>
+                        </svg>
                     </div>
-                </div>
-                <div class="warning-item glass">
-                    <div class="warning-icon">🛒</div>
-                    <div class="warning-text">
-                        <h4>Поддельные магазины</h4>
-                        <p>Фейковые интернет-магазины с заманчивыми ценами. Проверяйте отзывы и репутацию продавца перед покупкой!</p>
-                    </div>
-                </div>
-                <div class="warning-item glass">
-                    <div class="warning-icon">💸</div>
-                    <div class="warning-text">
-                        <h4>Инвестиционные пирамиды</h4>
-                        <p>Обещания быстрой прибыли без рисков. Помните: высокая доходность всегда связана с высокими рисками!</p>
-                    </div>
+                    <h3 class="skill-name">Python</h3>
+                    <p class="skill-description">Django · Flask · Data Science · Automation</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Tips Section -->
-        <section id="tips" class="section glass">
-            <h2>10 правил безопасности</h2>
-            <div class="tips-grid">
-                <div class="tip-card glass">
-                    <div class="tip-number">1</div>
-                    <h4>Сложные пароли</h4>
-                    <p>Используйте уникальные пароли для каждого сервиса, минимум 12 символов</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">2</div>
-                    <h4>Двухфакторная аутентификация</h4>
-                    <p>Включите 2FA везде, где это возможно</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">3</div>
-                    <h4>Проверка ссылок</h4>
-                    <p>Наводите курсор на ссылку перед кликом, проверяйте адрес сайта</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">4</div>
-                    <h4>Антивирус</h4>
-                    <p>Держите антивирус актуальным на всех устройствах</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">5</div>
-                    <h4>Обновления</h4>
-                    <p>Регулярно обновляйте ОС и приложения</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">6</div>
-                    <h4>Публичный Wi-Fi</h4>
-                    <p>Не проводите финансовые операции в общественных сетях</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">7</div>
-                    <h4>Проверка звонков</h4>
-                    <p>Перезванивайте по официальным номерам банка</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">8</div>
-                    <h4>Личные данные</h4>
-                    <p>Не делитесь личной информацией в соцсетях</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">9</div>
-                    <h4>Мониторинг счетов</h4>
-                    <p>Регулярно проверяйте банковские выписки</p>
-                </div>
-                <div class="tip-card glass">
-                    <div class="tip-number">10</div>
-                    <h4>Образование</h4>
-                    <p>Постоянно изучайте новые схемы мошенничества</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="section glass">
-            <h2>Финансовая грамотность</h2>
-            <div class="cards-grid">
-                <div class="card glass-strong">
-                    <div class="card-icon">📊</div>
-                    <h3>Бюджетирование</h3>
-                    <p>Ведите учёт доходов и расходов. Правило 50/30/20: 50% на необходимое, 30% на желаемое, 20% на сбережения и инвестиции.</p>
-                </div>
-                <div class="card glass-strong">
-                    <div class="card-icon">🎯</div>
-                    <h3>Финансовые цели</h3>
-                    <p>Ставьте конкретные финансовые цели: краткосрочные (до года), среднесрочные (1-5 лет) и долгосрочные (более 5 лет).</p>
-                </div>
-                <div class="card glass-strong">
-                    <div class="card-icon">💎</div>
-                    <h3>Инвестирование</h3>
-                    <p>Диверсифицируйте активы, инвестируйте только те деньги, которые готовы потерять. Изучайте инструменты перед вложением.</p>
-                </div>
-                <div class="card glass-strong">
-                    <div class="card-icon">🏦</div>
-                    <h3>Кредиты</h3>
-                    <p>Берите кредиты только на необходимые покупки. Рассчитывайте свою платёжеспособность и читайте условия договора.</p>
-                </div>
-                <div class="card glass-strong">
-                    <div class="card-icon">🛡️</div>
-                    <h3>Страхование</h3>
-                    <p>Защитите себя и свою семью: медицинская страховка, страхование жизни, имущества. Это важная часть финансового планирования.</p>
-                </div>
-                <div class="card glass-strong">
-                    <div class="card-icon">📚</div>
-                    <h3>Образование</h3>
-                    <p>Инвестируйте в себя: читайте книги о финансах, проходите курсы, следите за новостями экономики.</p>
-                </div>
-            </div>
-        </section>
-    </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="glass">
-        <p>© 2026 СемёнКомиссаров | Будьте финансово грамотными и защищёнными</p>
-        <p style="margin-top: 10px; font-size: 14px;">Знание — лучшая защита от мошенников 🛡️</p>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 userhexov. Все права защищены.</p>
+        </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation
+        // Create background particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 200 + 100;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all glass cards and skill cards
+            document.querySelectorAll('.glass-card, .skill-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -548,25 +499,32 @@
             });
         });
 
-        // Add subtle parallax effect to floating shapes
+        // Parallax effect on mouse move
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            const shapes = document.querySelectorAll('.floating-shape');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            shapes.forEach((shape, index) => {
-                const speed = (index + 1) * 10;
-                const xMove = (x - 0.5) * speed;
-                const yMove = (y - 0.5) * speed;
-                shape.style.transform = `translate(${xMove}px, ${yMove}px)`;
-            });
+            mouseX = (e.clientX - window.innerWidth / 2) / 50;
+            mouseY = (e.clientY - window.innerHeight / 2) / 50;
         });
 
-        // CTA Button interaction
-        document.querySelector('.cta-button').addEventListener('click', () => {
-            document.querySelector('#education').scrollIntoView({
-                behavior: 'smooth'
+        function animateParallax() {
+            currentX += (mouseX - currentX) * 0.05;
+            currentY += (mouseY - currentY) * 0.05;
+
+            document.querySelectorAll('.glass-card').forEach((card, index) => {
+                const depth = (index % 3 + 1) * 0.5;
+                card.style.transform = `translate(${currentX * depth}px, ${currentY * depth}px)`;
             });
+
+            requestAnimationFrame(animateParallax);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createParticles();
+            initScrollAnimations();
+            animateParallax();
         });
     </script>
 </body>
