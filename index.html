@@ -1,531 +1,1144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — Liquid Glass</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-primary: #e8e8e8;
-            --text-secondary: #a0a0a0;
-            --accent-silver: #c0c0c0;
-            --dark-bg: #0a0a0a;
-            --medium-bg: #1a1a1a;
-            --blur-amount: 20px;
-        }
-
-        body {
-            font-family: 'Cormorant', serif;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Background particles */
-        .bg-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.3;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(192, 192, 192, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-            25% { transform: translate(40px, -40px) scale(1.15); opacity: 0.4; }
-            50% { transform: translate(-30px, 30px) scale(0.85); opacity: 0.25; }
-            75% { transform: translate(30px, 15px) scale(1.08); opacity: 0.35; }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Glass card effect */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-            transition: left 0.8s ease;
-        }
-
-        .glass-card:hover::before {
-            left: 100%;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 120px 0;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 900px;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #808080 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1.2s ease-out forwards, titlePulse 4s ease-in-out 2s infinite;
-            opacity: 0;
-        }
-
-        @keyframes titlePulse {
-            0%, 100% { 
-                filter: brightness(1);
-                transform: translateY(0);
-            }
-            50% { 
-                filter: brightness(1.2);
-                transform: translateY(-2px);
-            }
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-        }
-
-        .hero-description {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            color: var(--accent-silver);
-            margin-top: 40px;
-            line-height: 1.8;
-            animation: fadeInUp 1.2s ease-out 0.3s forwards;
-            opacity: 0;
-        }
-
-        /* Section Styling */
-        section {
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
-            text-align: center;
-            letter-spacing: -0.01em;
-        }
-
-        section > .container > .section-title {
-            margin-bottom: 80px;
-        }
-
-        /* About Section */
-        .about-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about-text {
-            font-size: clamp(1.1rem, 2vw, 1.3rem);
-            color: var(--text-secondary);
-            line-height: 2;
-            text-align: center;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-        }
-
-        .skill-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur-amount));
-            -webkit-backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-        }
-
-        .skill-card:hover::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05), transparent 70%);
-            animation: pulseGlow 2s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        .skill-card a {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .skill-icon {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 60px;
-        }
-
-        .skill-icon svg {
-            color: var(--accent-silver);
-            transition: all 0.4s ease;
-        }
-
-        .skill-card:hover .skill-icon svg {
-            transform: scale(1.1);
-            opacity: 0.8;
-        }
-
-        .skill-name {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            color: var(--accent-silver);
-        }
-
-        .skill-description {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 50px;
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            font-family: 'Space Mono', monospace;
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 16px 32px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(var(--blur-amount));
-            border: 1px solid var(--glass-border);
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            font-size: 0.9rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-
-        .contact-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--text-secondary);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .container {
-                padding: 0 30px;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Безопасность в Интернете</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --green-bright: #00ff88;
+                --green-mid: #00cc66;
+                --green-dark: #007a3d;
+                --green-dim: #003d1f;
+                --green-glow: rgba(0, 255, 136, 0.4);
+                --bg: #020d06;
+                --glass: rgba(0, 255, 136, 0.06);
+                --glass-border: rgba(0, 255, 136, 0.2);
             }
 
-            section {
-                padding: 80px 0;
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            .skills-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                gap: 20px;
+            html {
+                scroll-behavior: smooth;
             }
 
-            .glass-card {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .container {
-                padding: 0 20px;
+            body {
+                background: var(--bg);
+                color: #cfffe7;
+                font-family: "Exo 2", sans-serif;
+                overflow-x: hidden;
+                cursor: none;
             }
 
-            .contact-links {
+            /* Custom cursor */
+            .cursor {
+                width: 16px;
+                height: 16px;
+                border: 2px solid var(--green-bright);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                transition:
+                    transform 0.1s,
+                    background 0.2s;
+                mix-blend-mode: screen;
+            }
+            .cursor-dot {
+                width: 4px;
+                height: 4px;
+                background: var(--green-bright);
+                border-radius: 50%;
+                position: fixed;
+                pointer-events: none;
+                z-index: 9999;
+                mix-blend-mode: screen;
+            }
+            body:hover .cursor {
+                background: var(--green-glow);
+            }
+
+            /* Matrix canvas */
+            #matrix-canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                opacity: 0.18;
+            }
+
+            /* Scanlines overlay */
+            body::after {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.05) 2px,
+                    rgba(0, 0, 0, 0.05) 4px
+                );
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            /* ─── HERO ─── */
+            .hero {
+                position: relative;
+                z-index: 1;
+                min-height: 100vh;
+                display: flex;
                 flex-direction: column;
                 align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 2rem;
             }
 
-            .contact-link {
-                width: 100%;
-                max-width: 300px;
+            .hero-badge {
+                font-family: "Orbitron", monospace;
+                font-size: 0.7rem;
+                letter-spacing: 0.4em;
+                color: var(--green-mid);
+                border: 1px solid var(--glass-border);
+                background: var(--glass);
+                backdrop-filter: blur(12px);
+                padding: 0.5rem 1.5rem;
+                border-radius: 2rem;
+                margin-bottom: 2rem;
+                animation: fadeDown 0.8s ease forwards;
+                opacity: 0;
             }
-        }
 
-        /* Scroll reveal animation delays */
-        .glass-card:nth-child(1) { transition-delay: 0.1s; }
-        .glass-card:nth-child(2) { transition-delay: 0.2s; }
-        .skill-card:nth-child(1) { transition-delay: 0.1s; }
-        .skill-card:nth-child(2) { transition-delay: 0.2s; }
-        .skill-card:nth-child(3) { transition-delay: 0.3s; }
+            .hero h1 {
+                font-family: "Orbitron", monospace;
+                font-size: clamp(2.2rem, 7vw, 5.5rem);
+                font-weight: 900;
+                line-height: 1.1;
+                background: linear-gradient(
+                    135deg,
+                    #fff 0%,
+                    var(--green-bright) 50%,
+                    var(--green-mid) 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                text-shadow: none;
+                filter: drop-shadow(0 0 30px var(--green-glow));
+                animation: fadeDown 0.8s 0.2s ease forwards;
+                opacity: 0;
+                margin-bottom: 1.5rem;
+            }
 
-    </style>
-</head>
-<body>
-    <!-- Background Particles -->
-    <div class="bg-particles" id="particles"></div>
+            .hero p {
+                max-width: 600px;
+                font-size: 1.1rem;
+                font-weight: 300;
+                color: rgba(207, 255, 231, 0.75);
+                line-height: 1.8;
+                animation: fadeDown 0.8s 0.4s ease forwards;
+                opacity: 0;
+                margin-bottom: 2.5rem;
+            }
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">userhexov</h1>
-                <p class="hero-description">
-                    Создаю цифровые продукты на стыке искусства и технологий. 
-                    Минимализм, функциональность, внимание к деталям.
-                </p>
+            .hero-btn {
+                display: inline-block;
+                font-family: "Orbitron", monospace;
+                font-size: 0.85rem;
+                letter-spacing: 0.2em;
+                color: var(--bg);
+                background: var(--green-bright);
+                padding: 1rem 2.5rem;
+                border-radius: 0.3rem;
+                text-decoration: none;
+                box-shadow:
+                    0 0 30px var(--green-glow),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+                animation:
+                    fadeDown 0.8s 0.6s ease forwards,
+                    pulse-btn 3s 1.4s infinite;
+                opacity: 0;
+                transition: transform 0.2s;
+            }
+            .hero-btn:hover {
+                transform: scale(1.05);
+            }
+
+            .shield-icon {
+                font-size: 6rem;
+                animation:
+                    float 4s ease-in-out infinite,
+                    fadeDown 0.8s 0s ease forwards;
+                opacity: 0;
+                margin-bottom: 1rem;
+                filter: drop-shadow(0 0 20px var(--green-glow));
+            }
+
+            /* ─── SECTION BASE ─── */
+            section {
+                position: relative;
+                z-index: 1;
+                padding: 5rem 2rem;
+            }
+
+            .section-title {
+                font-family: "Orbitron", monospace;
+                font-size: clamp(1.5rem, 4vw, 2.5rem);
+                font-weight: 700;
+                text-align: center;
+                color: var(--green-bright);
+                margin-bottom: 0.5rem;
+                text-shadow: 0 0 20px var(--green-glow);
+            }
+
+            .section-line {
+                width: 80px;
+                height: 3px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--green-bright),
+                    transparent
+                );
+                margin: 0.8rem auto 3.5rem;
+                border-radius: 2px;
+            }
+
+            /* ─── THREATS ─── */
+            .threats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+
+            .threat-card {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(16px);
+                border-radius: 1rem;
+                padding: 2rem;
+                position: relative;
+                overflow: hidden;
+                transition:
+                    transform 0.3s,
+                    box-shadow 0.3s,
+                    border-color 0.3s;
+                animation: slideUp 0.6s ease both;
+            }
+
+            .threat-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 12px 40px rgba(0, 255, 136, 0.15);
+                border-color: var(--green-mid);
+            }
+
+            .threat-card::before {
+                content: "";
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(
+                    circle at center,
+                    rgba(0, 255, 136, 0.06) 0%,
+                    transparent 60%
+                );
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+            .threat-card:hover::before {
+                opacity: 1;
+            }
+
+            .threat-card:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            .threat-card:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            .threat-card:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            .threat-card:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+            .threat-card:nth-child(5) {
+                animation-delay: 0.5s;
+            }
+            .threat-card:nth-child(6) {
+                animation-delay: 0.6s;
+            }
+
+            .threat-icon {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+            .threat-card h3 {
+                font-family: "Orbitron", monospace;
+                font-size: 1rem;
+                color: var(--green-bright);
+                margin-bottom: 0.75rem;
+            }
+            .threat-card p {
+                font-size: 0.9rem;
+                line-height: 1.7;
+                color: rgba(207, 255, 231, 0.7);
+            }
+
+            /* ─── RULES ─── */
+            .rules-section {
+                background: linear-gradient(
+                    180deg,
+                    transparent,
+                    rgba(0, 40, 20, 0.5),
+                    transparent
+                );
+            }
+
+            .rules-list {
+                max-width: 800px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+
+            .rule-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1.2rem;
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(12px);
+                border-radius: 0.8rem;
+                padding: 1.4rem 1.8rem;
+                transition:
+                    transform 0.25s,
+                    border-color 0.25s;
+                animation: slideRight 0.5s ease both;
+            }
+
+            .rule-item:hover {
+                transform: translateX(8px);
+                border-color: var(--green-mid);
+            }
+
+            .rule-num {
+                font-family: "Orbitron", monospace;
+                font-size: 1.4rem;
+                font-weight: 900;
+                color: var(--green-bright);
+                min-width: 2rem;
+                text-shadow: 0 0 10px var(--green-glow);
+            }
+
+            .rule-text h4 {
+                font-family: "Orbitron", monospace;
+                font-size: 0.9rem;
+                color: #fff;
+                margin-bottom: 0.35rem;
+            }
+            .rule-text p {
+                font-size: 0.88rem;
+                color: rgba(207, 255, 231, 0.65);
+                line-height: 1.6;
+            }
+
+            .rule-item:nth-child(1) {
+                animation-delay: 0.05s;
+            }
+            .rule-item:nth-child(2) {
+                animation-delay: 0.1s;
+            }
+            .rule-item:nth-child(3) {
+                animation-delay: 0.15s;
+            }
+            .rule-item:nth-child(4) {
+                animation-delay: 0.2s;
+            }
+            .rule-item:nth-child(5) {
+                animation-delay: 0.25s;
+            }
+            .rule-item:nth-child(6) {
+                animation-delay: 0.3s;
+            }
+            .rule-item:nth-child(7) {
+                animation-delay: 0.35s;
+            }
+
+            /* ─── QUIZ ─── */
+            .quiz-section {
+                text-align: center;
+            }
+
+            .quiz-box {
+                max-width: 700px;
+                margin: 0 auto;
+                background: rgba(0, 30, 15, 0.7);
+                border: 1px solid var(--glass-border);
+                backdrop-filter: blur(20px);
+                border-radius: 1.5rem;
+                padding: 3rem 2.5rem;
+                box-shadow: 0 0 60px rgba(0, 255, 136, 0.08);
+            }
+
+            .quiz-progress {
+                display: flex;
+                gap: 6px;
+                justify-content: center;
+                margin-bottom: 2rem;
+            }
+            .progress-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: 2px solid var(--green-dark);
+                background: transparent;
+                transition:
+                    background 0.3s,
+                    border-color 0.3s;
+            }
+            .progress-dot.active {
+                background: var(--green-bright);
+                border-color: var(--green-bright);
+                box-shadow: 0 0 8px var(--green-glow);
+            }
+            .progress-dot.done {
+                background: var(--green-dark);
+                border-color: var(--green-dark);
+            }
+
+            .quiz-q {
+                font-family: "Orbitron", monospace;
+                font-size: 1.1rem;
+                color: #fff;
+                line-height: 1.5;
+                margin-bottom: 2rem;
+            }
+
+            .quiz-options {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .quiz-opt {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                color: rgba(207, 255, 231, 0.85);
+                font-family: "Exo 2", sans-serif;
+                font-size: 0.9rem;
+                padding: 0.9rem 1rem;
+                border-radius: 0.6rem;
+                cursor: pointer;
+                transition: all 0.2s;
+                text-align: left;
+                line-height: 1.4;
+            }
+            .quiz-opt:hover {
+                border-color: var(--green-mid);
+                background: rgba(0, 255, 136, 0.1);
+                color: #fff;
+            }
+            .quiz-opt.correct {
+                background: rgba(0, 255, 136, 0.2);
+                border-color: var(--green-bright);
+                color: #fff;
+            }
+            .quiz-opt.wrong {
+                background: rgba(255, 50, 50, 0.15);
+                border-color: rgba(255, 80, 80, 0.5);
+                color: #fff;
+            }
+            .quiz-opt:disabled {
+                cursor: default;
+            }
+
+            .quiz-feedback {
+                font-size: 0.9rem;
+                min-height: 1.5rem;
+                margin-bottom: 1rem;
+                color: var(--green-bright);
+                font-weight: 600;
+            }
+            .quiz-feedback.wrong-msg {
+                color: #ff6b6b;
+            }
+
+            .quiz-next {
+                font-family: "Orbitron", monospace;
+                font-size: 0.8rem;
+                letter-spacing: 0.15em;
+                background: var(--green-bright);
+                color: var(--bg);
+                border: none;
+                padding: 0.85rem 2.5rem;
+                border-radius: 0.4rem;
+                cursor: pointer;
+                display: none;
+                margin: 0 auto;
+                transition: transform 0.2s;
+            }
+            .quiz-next:hover {
+                transform: scale(1.04);
+            }
+            .quiz-next.visible {
+                display: block;
+            }
+
+            .quiz-result {
+                display: none;
+                text-align: center;
+            }
+            .quiz-result.show {
+                display: block;
+            }
+            .result-score {
+                font-family: "Orbitron", monospace;
+                font-size: 3rem;
+                font-weight: 900;
+                color: var(--green-bright);
+                text-shadow: 0 0 30px var(--green-glow);
+                margin: 1rem 0;
+            }
+            .result-msg {
+                font-size: 1rem;
+                color: rgba(207, 255, 231, 0.75);
+                margin-bottom: 1.5rem;
+            }
+            .quiz-restart {
+                font-family: "Orbitron", monospace;
+                font-size: 0.75rem;
+                letter-spacing: 0.15em;
+                background: transparent;
+                color: var(--green-bright);
+                border: 1px solid var(--green-bright);
+                padding: 0.75rem 2rem;
+                border-radius: 0.4rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .quiz-restart:hover {
+                background: var(--green-bright);
+                color: var(--bg);
+            }
+
+            /* ─── TIPS TICKER ─── */
+            .ticker-wrap {
+                position: relative;
+                overflow: hidden;
+                background: rgba(0, 255, 136, 0.05);
+                border-top: 1px solid var(--glass-border);
+                border-bottom: 1px solid var(--glass-border);
+                padding: 0.9rem 0;
+                margin: 0;
+                z-index: 1;
+            }
+            .ticker {
+                display: flex;
+                gap: 4rem;
+                animation: ticker 30s linear infinite;
+                white-space: nowrap;
+                width: max-content;
+            }
+            .ticker span {
+                font-family: "Orbitron", monospace;
+                font-size: 0.75rem;
+                letter-spacing: 0.15em;
+                color: var(--green-mid);
+            }
+            .ticker span::before {
+                content: "⬡ ";
+                color: var(--green-bright);
+            }
+
+            /* ─── FOOTER ─── */
+            footer {
+                position: relative;
+                z-index: 1;
+                text-align: center;
+                padding: 2.5rem;
+                border-top: 1px solid rgba(0, 255, 136, 0.1);
+                font-size: 0.8rem;
+                color: rgba(207, 255, 231, 0.35);
+                font-family: "Orbitron", monospace;
+                letter-spacing: 0.1em;
+            }
+
+            /* ─── ANIMATIONS ─── */
+            @keyframes fadeDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes slideRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(-30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-14px);
+                }
+            }
+            @keyframes pulse-btn {
+                0%,
+                100% {
+                    box-shadow:
+                        0 0 30px var(--green-glow),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+                }
+                50% {
+                    box-shadow:
+                        0 0 55px rgba(0, 255, 136, 0.7),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+                }
+            }
+            @keyframes ticker {
+                from {
+                    transform: translateX(0);
+                }
+                to {
+                    transform: translateX(-50%);
+                }
+            }
+
+            /* Scroll indicator */
+            .scroll-indicator {
+                position: absolute;
+                bottom: 2rem;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.4rem;
+                opacity: 0.5;
+            }
+            .scroll-indicator span {
+                font-size: 0.65rem;
+                letter-spacing: 0.3em;
+                font-family: "Orbitron", monospace;
+                color: var(--green-mid);
+            }
+            .scroll-arrow {
+                width: 20px;
+                height: 20px;
+                border-right: 2px solid var(--green-mid);
+                border-bottom: 2px solid var(--green-mid);
+                transform: rotate(45deg);
+                animation: bounce 1.5s infinite;
+            }
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: rotate(45deg) translateY(0);
+                }
+                50% {
+                    transform: rotate(45deg) translateY(5px);
+                }
+            }
+
+            /* Responsive */
+            @media (max-width: 600px) {
+                .quiz-options {
+                    grid-template-columns: 1fr;
+                }
+                .hero h1 {
+                    font-size: 2rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="matrix-canvas"></canvas>
+        <div class="cursor" id="cursor"></div>
+        <div class="cursor-dot" id="cursor-dot"></div>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="shield-icon"></div>
+            <div class="hero-badge">ШКОЛЬНЫЙ ПРОЕКТ · КИБЕРБЕЗОПАСНОСТЬ</div>
+            <h1>Безопасность<br />в Интернете</h1>
+            <p>
+                Интернет — мощный инструмент, но он полон ловушек. Узнай, как
+                защитить себя от мошенников и оставаться в безопасности онлайн.
+            </p>
+            <a href="#threats" class="hero-btn">НАЧАТЬ ИЗУЧЕНИЕ</a>
+            <div class="scroll-indicator">
+                <span>ВНИЗ</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
+
+        <!-- TICKER -->
+        <div class="ticker-wrap">
+            <div class="ticker">
+                <span>НИКОГДА НЕ ПЕРЕДАВАЙ ПАРОЛИ</span>
+                <span>ПРОВЕРЯЙ ССЫЛКИ ПЕРЕД КЛИКОМ</span>
+                <span>ДВУХФАКТОРНАЯ АУТЕНТИФИКАЦИЯ</span>
+                <span>НЕ СКАЧИВАЙ ПОДОЗРИТЕЛЬНЫЕ ФАЙЛЫ</span>
+                <span>БЕРЕГИТЕ ЛИЧНЫЕ ДАННЫЕ</span>
+                <span>ФИШИНГ — ГЛАВНАЯ УГРОЗА</span>
+                <span>НИКОГДА НЕ ПЕРЕДАВАЙ ПАРОЛИ</span>
+                <span>ПРОВЕРЯЙ ССЫЛКИ ПЕРЕД КЛИКОМ</span>
+                <span>ДВУХФАКТОРНАЯ АУТЕНТИФИКАЦИЯ</span>
+                <span>НЕ СКАЧИВАЙ ПОДОЗРИТЕЛЬНЫЕ ФАЙЛЫ</span>
+                <span>БЕРЕГИТЕ ЛИЧНЫЕ ДАННЫЕ</span>
+                <span>ФИШИНГ — ГЛАВНАЯ УГРОЗА</span>
             </div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="about-content glass-card">
-                <h2 class="section-title" style="margin-bottom: 40px;">Обо мне</h2>
-                <p class="about-text">
-                    Я специализируюсь на разработке современных веб-интерфейсов с фокусом на пользовательский опыт. 
-                    Работаю с передовыми технологиями, создавая решения, которые объединяют эстетику и производительность. 
-                    Каждый проект — это возможность создать что-то значимое и запоминающееся.
-                </p>
-                
-                <h2 class="section-title" style="margin-top: 80px; margin-bottom: 50px;">Контакты</h2>
-                <div class="contact-links">
-                    <a href="https://t.me/userhexov" class="contact-link">Telegram</a>
-                    <a href="https://github.com/userhexov" class="contact-link">GitHub</a>
+        <!-- THREATS -->
+        <section id="threats">
+            <h2 class="section-title">Угрозы в Интернете</h2>
+            <div class="section-line"></div>
+            <div class="threats-grid">
+                <div class="threat-card">
+                    <h3>Фишинг</h3>
+                    <p>
+                        Мошенники создают поддельные сайты и письма, которые
+                        выглядят как настоящие (банки, соцсети). Цель — украсть
+                        логин и пароль. Всегда проверяй адрес сайта в строке
+                        браузера!
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h3>Интернет-мошенничество</h3>
+                    <p>
+                        «Выигрыш приза», «лёгкий заработок», «помоги перевести
+                        деньги» — классические схемы обмана. Если предложение
+                        звучит слишком хорошо, это ловушка.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h3>Вирусы и вредоносный ПО</h3>
+                    <p>
+                        Программы, которые крадут данные, шифруют файлы или
+                        следят за тобой. Попадают через скачанные файлы, ссылки
+                        или заражённые флешки.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h3>Слежка и утечка данных</h3>
+                    <p>
+                        Личные фото, переписка, геолокация могут быть
+                        использованы против тебя. Береги личную информацию — не
+                        публикуй всё подряд в социальных сетях.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h3>Кибербуллинг</h3>
+                    <p>
+                        Оскорбления, угрозы и травля в интернете — это тоже
+                        преступление. Не отвечай агрессорам, сохраняй
+                        доказательства и обратись ко взрослым.
+                    </p>
+                </div>
+
+                <div class="threat-card">
+                    <h3>Взлом аккаунтов</h3>
+                    <p>
+                        Слабые пароли, использование одного пароля везде, ответы
+                        на «секретные вопросы» — всё это открывает доступ
+                        мошенникам к твоим аккаунтам.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Skills Section -->
-    <section id="skills">
-        <div class="container">
-            <h2 class="section-title">Стек</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="50" height="50" rx="8" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-                            <path d="M15 20L20 25L15 30M25 30H35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
-                        </svg>
+        <!-- RULES -->
+        <section class="rules-section" id="rules">
+            <h2 class="section-title">Правила Защиты</h2>
+            <div class="section-line"></div>
+            <div class="rules-list">
+                <div class="rule-item">
+                    <div class="rule-num">01</div>
+                    <div class="rule-text">
+                        <h4>Создавай надёжные пароли</h4>
+                        <p>
+                            Минимум 12 символов: буквы, цифры, спецсимволы.
+                            Никаких «123456», дат рождения или имён питомцев.
+                            Используй разные пароли для разных сайтов.
+                        </p>
                     </div>
-                    <h3 class="skill-name">Bash</h3>
-                    <p class="skill-description">Shell Scripting · Automation · Unix Tools</p>
                 </div>
-                <div class="skill-card">
-                    <div class="skill-icon">
-                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 15C20 15 25 12 30 12C35 12 40 15 40 15V28C40 28 35 31 30 31C25 31 20 28 20 28V15Z" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-                            <path d="M20 32C20 32 25 29 30 29C35 29 40 32 40 32V45C40 45 35 48 30 48C25 48 20 45 20 45V32Z" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
-                            <circle cx="26" cy="20" r="1.5" fill="currentColor" opacity="0.6"/>
-                            <circle cx="34" cy="37" r="1.5" fill="currentColor" opacity="0.6"/>
-                        </svg>
+
+                <div class="rule-item">
+                    <div class="rule-num">02</div>
+                    <div class="rule-text">
+                        <h4>Включи двухфакторную аутентификацию</h4>
+                        <p>
+                            Даже если мошенник узнает пароль — без кода из SMS
+                            он не войдёт в твой аккаунт. Включи 2FA в настройках
+                            всех важных сервисов.
+                        </p>
                     </div>
-                    <h3 class="skill-name">Python</h3>
-                    <p class="skill-description">Django · Flask · Data Science · Automation</p>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-num">03</div>
+                    <div class="rule-text">
+                        <h4>Проверяй адрес сайта</h4>
+                        <p>
+                            Мошеннические сайты похожи на настоящие, но адрес
+                            будет отличаться: «vk-login.ru» вместо «vk.com».
+                            Всегда смотри в адресную строку браузера!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-num">04</div>
+                    <div class="rule-text">
+                        <h4>Не переходи по подозрительным ссылкам</h4>
+                        <p>
+                            «Ты выиграл iPhone!», «Смотри, что о тебе написали!»
+                            — такие сообщения в мессенджерах ведут на фишинговые
+                            сайты. Игнорируй и блокируй.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-num">05</div>
+                    <div class="rule-text">
+                        <h4>Никому не давай личные данные</h4>
+                        <p>
+                            Ни один настоящий банк или сервис не попросит
+                            пароль, CVV-код карты или код из SMS через
+                            переписку. Это всегда мошенники.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-num">06</div>
+                    <div class="rule-text">
+                        <h4>Обновляй программы и антивирус</h4>
+                        <p>
+                            Обновления закрывают уязвимости, через которые
+                            проникают вирусы. Не откладывай обновления системы и
+                            браузера.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-num">07</div>
+                    <div class="rule-text">
+                        <h4>Осторожно с публичным Wi-Fi</h4>
+                        <p>
+                            В кафе и торговых центрах не вводи пароли и не
+                            проводи платежи — данные могут перехватить.
+                            Используй VPN или мобильный интернет.
+                        </p>
+                    </div>
                 </div>
             </div>
+        </section>
 
+        <!-- QUIZ -->
+        <section class="quiz-section" id="quiz">
+            <h2 class="section-title">Проверь Себя</h2>
+            <div class="section-line"></div>
+            <div class="quiz-box">
+                <div id="quiz-main">
+                    <div class="quiz-progress" id="quiz-progress"></div>
+                    <div class="quiz-q" id="quiz-q"></div>
+                    <div class="quiz-options" id="quiz-opts"></div>
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                    <button class="quiz-next" id="quiz-next">
+                        СЛЕДУЮЩИЙ ВОПРОС →
+                    </button>
+                </div>
+
+                <div class="quiz-result" id="quiz-result">
+                    <div class="result-score" id="result-score"></div>
+                    <div class="result-msg" id="result-msg"></div>
+                    <button class="quiz-restart" onclick="startQuiz()">
+                        ↺ ПРОЙТИ СНОВА
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <div class="ticker-wrap" style="margin-top: 0">
+            <div class="ticker">
+                <span>БУДЬ В БЕЗОПАСНОСТИ ОНЛАЙН</span>
+                <span>ДУМАЙ ПРЕЖДЕ ЧЕМ КЛИКАТЬ</span>
+                <span>ЗАЩИТИ СВОИ ДАННЫЕ</span>
+                <span>РАССКАЖИ ДРУГИМ</span>
+                <span>БУДЬ В БЕЗОПАСНОСТИ ОНЛАЙН</span>
+                <span>ДУМАЙ ПРЕЖДЕ ЧЕМ КЛИКАТЬ</span>
+                <span>ЗАЩИТИ СВОИ ДАННЫЕ</span>
+                <span>РАССКАЖИ ДРУГИМ</span>
+            </div>
         </div>
-    </section>
+        <footer>
+            © 2025 · ШКОЛЬНЫЙ ПРОЕКТ · КИБЕРБЕЗОПАСНОСТЬ · ЗАЩИТИ СЕБЯ В СЕТИ
+        </footer>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 userhexov. Все права защищены.</p>
-        </div>
-    </footer>
+        <script>
+            // ── Custom cursor ──
+            const cursor = document.getElementById("cursor");
+            const dot = document.getElementById("cursor-dot");
+            document.addEventListener("mousemove", (e) => {
+                cursor.style.left = e.clientX - 8 + "px";
+                cursor.style.top = e.clientY - 8 + "px";
+                dot.style.left = e.clientX - 2 + "px";
+                dot.style.top = e.clientY - 2 + "px";
+            });
 
-    <script>
-        // Create background particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 20;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 200 + 100;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                
-                container.appendChild(particle);
+            // ── Matrix rain ──
+            const canvas = document.getElementById("matrix-canvas");
+            const ctx = canvas.getContext("2d");
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
             }
-        }
+            resizeCanvas();
+            window.addEventListener("resize", resizeCanvas);
 
-        // Intersection Observer for scroll animations
-        function initScrollAnimations() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -100px 0px'
-            };
+            const chars =
+                "アイウエオカキクケコサシスセソタチツテトナニヌネノABCDEFGHIJKLMN0123456789@#$%&";
+            let cols, drops;
+            function initMatrix() {
+                cols = Math.floor(canvas.width / 18);
+                drops = Array(cols).fill(1);
+            }
+            initMatrix();
+            window.addEventListener("resize", initMatrix);
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+            function drawMatrix() {
+                ctx.fillStyle = "rgba(2, 13, 6, 0.05)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.font = "14px monospace";
+                for (let i = 0; i < drops.length; i++) {
+                    const ch = chars[Math.floor(Math.random() * chars.length)];
+                    const alpha = Math.random() * 0.6 + 0.2;
+                    ctx.fillStyle = `rgba(0, ${Math.floor(150 + Math.random() * 105)}, ${Math.floor(50 + Math.random() * 50)}, ${alpha})`;
+                    ctx.fillText(ch, i * 18, drops[i] * 18);
+                    if (drops[i] * 18 > canvas.height && Math.random() > 0.975)
+                        drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 60);
+
+            // ── Quiz ──
+            const questions = [
+                {
+                    q: "Ты получил письмо от «банка» с просьбой срочно ввести пароль по ссылке. Что делать?",
+                    opts: [
+                        "Ввести пароль — банк знает лучше",
+                        "Не переходить по ссылке, позвонить в банк напрямую",
+                        "Переслать письмо друзьям",
+                        "Ответить на письмо с паролем",
+                    ],
+                    correct: 1,
+                    explain:
+                        " Правильно! Настоящие банки никогда не просят пароль по e-mail.",
+                },
+                {
+                    q: "Какой пароль самый надёжный?",
+                    opts: [
+                        "qwerty123",
+                        "01.01.2008",
+                        "K#9mR!vL2@pQ",
+                        "password",
+                    ],
+                    correct: 2,
+                    explain:
+                        " Правильно! Длинный пароль с буквами, цифрами и символами — лучший выбор.",
+                },
+                {
+                    q: "Незнакомец в соцсети просит фото твоего паспорта «для проверки». Ты:",
+                    opts: [
+                        "Отправишь — надо помочь",
+                        "Откажешься и заблокируешь пользователя",
+                        "Отправишь только половину",
+                        "Спросишь зачем, а потом отправишь",
+                    ],
+                    correct: 1,
+                    explain:
+                        " Правильно! Никогда не отправляй документы незнакомцам в интернете.",
+                },
+                {
+                    q: "Ты подключился к бесплатному Wi-Fi в кафе. Что безопасно делать?",
+                    opts: [
+                        "Войти в интернет-банк",
+                        "Ввести пароль от почты",
+                        "Смотреть YouTube без входа в аккаунт",
+                        "Оплатить покупку картой",
+                    ],
+                    correct: 2,
+                    explain:
+                        " Правильно! На публичном Wi-Fi не вводи пароли и не проводи платежи.",
+                },
+                {
+                    q: "Всплыло сообщение: «Ваш компьютер заражён! Позвоните по номеру...». Что делать?",
+                    opts: [
+                        "Позвонить по указанному номеру",
+                        "Закрыть вкладку — это мошенничество",
+                        "Скачать предложенную программу",
+                        "Ввести данные карты для «защиты»",
+                    ],
+                    correct: 1,
+                    explain:
+                        " Правильно! Это классический сценарий обмана — просто закрой вкладку.",
+                },
+            ];
+
+            let current = 0,
+                score = 0,
+                answered = false;
+
+            function startQuiz() {
+                current = 0;
+                score = 0;
+                answered = false;
+                document.getElementById("quiz-main").style.display = "";
+                document.getElementById("quiz-result").classList.remove("show");
+                renderQuestion();
+            }
+
+            function renderQuestion() {
+                answered = false;
+                const q = questions[current];
+                // Progress dots
+                const prog = document.getElementById("quiz-progress");
+                prog.innerHTML = questions
+                    .map((_, i) => {
+                        let cls = "progress-dot";
+                        if (i < current) cls += " done";
+                        if (i === current) cls += " active";
+                        return `<div class="${cls}"></div>`;
+                    })
+                    .join("");
+
+                document.getElementById("quiz-q").textContent =
+                    `${current + 1}. ${q.q}`;
+                document.getElementById("quiz-feedback").textContent = "";
+                document.getElementById("quiz-feedback").className =
+                    "quiz-feedback";
+                document
+                    .getElementById("quiz-next")
+                    .classList.remove("visible");
+
+                const optsEl = document.getElementById("quiz-opts");
+                optsEl.innerHTML = q.opts
+                    .map(
+                        (o, i) =>
+                            `<button class="quiz-opt" onclick="answer(${i})">${o}</button>`,
+                    )
+                    .join("");
+            }
+
+            function answer(idx) {
+                if (answered) return;
+                answered = true;
+                const q = questions[current];
+                const opts = document.querySelectorAll(".quiz-opt");
+                opts.forEach((o) => (o.disabled = true));
+                const fb = document.getElementById("quiz-feedback");
+
+                if (idx === q.correct) {
+                    score++;
+                    opts[idx].classList.add("correct");
+                    fb.textContent = q.explain;
+                    fb.className = "quiz-feedback";
+                } else {
+                    opts[idx].classList.add("wrong");
+                    opts[q.correct].classList.add("correct");
+                    fb.textContent =
+                        "❌ Неверно. " +
+                        q.explain.replace("✅ Правильно! ", "");
+                    fb.className = "quiz-feedback wrong-msg";
+                }
+
+                const nextBtn = document.getElementById("quiz-next");
+                nextBtn.textContent =
+                    current < questions.length - 1
+                        ? "СЛЕДУЮЩИЙ ВОПРОС →"
+                        : "ПОСМОТРЕТЬ РЕЗУЛЬТАТ →";
+                nextBtn.classList.add("visible");
+            }
+
+            document
+                .getElementById("quiz-next")
+                .addEventListener("click", () => {
+                    current++;
+                    if (current < questions.length) {
+                        renderQuestion();
+                    } else {
+                        showResult();
                     }
                 });
-            }, observerOptions);
 
-            // Observe all glass cards and skill cards
-            document.querySelectorAll('.glass-card, .skill-card').forEach(card => {
-                observer.observe(card);
-            });
-        }
+            function showResult() {
+                document.getElementById("quiz-main").style.display = "none";
+                const res = document.getElementById("quiz-result");
+                res.classList.add("show");
+                document.getElementById("result-score").textContent =
+                    `${score} / ${questions.length}`;
+                const msgs = [
+                    "Нужно повторить материал — прочитай страницу ещё раз!",
+                    "Неплохо! Но стоит подучить правила безопасности.",
+                    "Хороший результат! Ты знаешь основы.",
+                    "Отлично! Ты настоящий эксперт по кибербезопасности! 🔐",
+                ];
+                const idx =
+                    score <= 1 ? 0 : score <= 2 ? 1 : score <= 3 ? 2 : 3;
+                document.getElementById("result-msg").textContent = msgs[idx];
+            }
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Parallax effect on mouse move
-        let mouseX = 0, mouseY = 0;
-        let currentX = 0, currentY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX - window.innerWidth / 2) / 50;
-            mouseY = (e.clientY - window.innerHeight / 2) / 50;
-        });
-
-        function animateParallax() {
-            currentX += (mouseX - currentX) * 0.05;
-            currentY += (mouseY - currentY) * 0.05;
-
-            document.querySelectorAll('.glass-card').forEach((card, index) => {
-                const depth = (index % 3 + 1) * 0.5;
-                card.style.transform = `translate(${currentX * depth}px, ${currentY * depth}px)`;
-            });
-
-            requestAnimationFrame(animateParallax);
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            createParticles();
-            initScrollAnimations();
-            animateParallax();
-        });
-    </script>
-</body>
+            startQuiz();
+        </script>
+    </body>
 </html>
