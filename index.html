@@ -301,4 +301,452 @@ footer .ember{color:var(--ember);}
 <div id="cur"></div>
 <div id="cur-dot"></div>
 
-<!-- LOAD
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-half top"></div>
+  <div class="loader-half bot"></div>
+  <div class="loader-center">
+    <div class="loader-name">HEXOV<span class="ld-dot">.DEV</span></div>
+    <div class="loader-pct"><span id="pct-num">0</span><span class="pct-sym">%</span></div>
+    <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loader-bar"></div></div>
+    <div class="loader-status" id="loader-status"></div>
+  </div>
+</div>
+
+<div class="page-wrap" id="page-wrap">
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="logo-glitch" data-text="hexov">hexov</span><span class="logo-dot">.dev</span>
+  </a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#about"    data-i18n="nav_about">about</a>
+      <a href="#stack"    data-i18n="nav_stack">stack</a>
+      <a href="#projects" data-i18n="nav_projects">projects</a>
+      <a href="#contact"  data-i18n="nav_contact">contact</a>
+    </div>
+    <div class="lang-sw">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-ru" onclick="setLang('ru')">RU</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-tag"><span data-i18n="hero_tag">developer</span></div>
+    <h1 class="hero-name">
+      <span class="line1">
+        <span class="glitch-wrap" id="glitch-line" data-text="hi, i'm">hi, i'm</span>
+      </span>
+      <span class="line2">hexov</span>
+    </h1>
+    <p class="hero-desc">
+      <span data-i18n="hero_desc1">system-level dev.</span><br>
+      <span data-i18n="hero_desc2">building tools that make your</span> <span class="hl" data-i18n="hero_desc3">linux setup</span> <span data-i18n="hero_desc4">feel like home.</span><br>
+      <span id="typing-text"></span><span class="type-cursor"></span>
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary" data-i18n="hero_btn1">↳ see my work</a>
+      <a href="#contact"  class="btn-ghost"   data-i18n="hero_btn2">get in touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span data-i18n="hero_scroll">scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="s-label">// 01 — <span data-i18n="nav_about">about</span></div>
+  <div class="s-title" data-i18n="about_title">who i am</div>
+  <div class="s-rule"></div>
+  <div class="about-layout reveal">
+    <div class="about-text">
+      <p><span data-i18n="about_p1">i'm <span class="hl">hexov</span> — a developer with a passion for <span class="hl">system tools</span> and making linux environments more expressive and manageable.</span></p>
+      <p><span data-i18n="about_p2">my focus is on software that sits close to the metal — <span class="hl">CLI tools</span>, TUI interfaces, automation scripts. i believe the terminal is a canvas.</span></p>
+      <p><span data-i18n="about_p3">currently building <span class="hl">hypr.themes-utility</span> — a project aimed at unifying the fragmented world of linux visual configuration into one cohesive tool.</span></p>
+      <p><span data-i18n="about_p4">also learning <span class="hl">Rust</span> because some things just need to be fast.</span></p>
+    </div>
+    <div class="about-card">
+      <div class="about-stat"><div class="stat-val">1</div><div class="stat-label" data-i18n="stat1">active project</div></div>
+      <div class="about-stat"><div class="stat-val">3+</div><div class="stat-label" data-i18n="stat2">core languages</div></div>
+      <div class="about-stat"><div class="stat-val">&#x221e;</div><div class="stat-label" data-i18n="stat3">dotfiles tweaked</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack" class="stack-section">
+  <div class="s-label">// 02 — <span data-i18n="nav_stack">stack</span></div>
+  <div class="s-title" data-i18n="stack_title">tools i use</div>
+  <div class="s-rule"></div>
+  <div class="stack-grid">
+    <div class="stack-item" data-w="85">
+      <div class="stack-name py">Python</div>
+      <div class="stack-tag" data-i18n="tag_primary">primary</div>
+      <div class="stack-bar"><div class="stack-bar-fill"></div></div>
+    </div>
+    <div class="stack-item" data-w="80">
+      <div class="stack-name sh">Bash</div>
+      <div class="stack-tag" data-i18n="tag_primary">primary</div>
+      <div class="stack-bar"><div class="stack-bar-fill"></div></div>
+    </div>
+    <div class="stack-item" data-w="72">
+      <div class="stack-name sq">SQL</div>
+      <div class="stack-tag" data-i18n="tag_primary">primary</div>
+      <div class="stack-bar"><div class="stack-bar-fill"></div></div>
+    </div>
+    <div class="stack-item learning" data-w="28">
+      <div class="stack-name rs">Rust</div>
+      <div class="stack-tag" data-i18n="tag_learning">learning</div>
+      <div class="stack-bar"><div class="stack-bar-fill"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="s-label">// 03 — <span data-i18n="nav_projects">projects</span></div>
+  <div class="s-title" data-i18n="proj_title">what i build</div>
+  <div class="s-rule"></div>
+  <div class="project-card reveal">
+    <div class="project-header">
+      <div>
+        <div class="project-status" data-i18n="proj_status">IN DEVELOPMENT</div>
+        <div class="project-title"><span>hypr</span>.themes-utility</div>
+      </div>
+    </div>
+    <div class="project-body">
+      <p class="project-desc" data-i18n="proj_desc">a unified theme management system for linux. control all your visual configs at once — create themes from scratch, switch and save them instantly, or share them directly from any github repository.</p>
+      <div class="project-features">
+        <div class="feat"><span class="feat-sym">[G]</span><span data-i18n="feat_gui">GUI interface</span></div>
+        <div class="feat"><span class="feat-sym">[T]</span><span data-i18n="feat_tui">TUI interface</span></div>
+        <div class="feat"><span class="feat-sym">[C]</span><span data-i18n="feat_cli">CLI interface</span></div>
+        <div class="feat"><span class="feat-sym">[+]</span><span data-i18n="feat_builder">theme builder</span></div>
+        <div class="feat"><span class="feat-sym">[~]</span><span data-i18n="feat_live">live switching</span></div>
+        <div class="feat"><span class="feat-sym">[@]</span><span data-i18n="feat_sync">github sync</span></div>
+      </div>
+      <div class="project-tags">
+        <span class="tag">python</span>
+        <span class="tag">bash</span>
+        <span class="tag">hyprland</span>
+        <span class="tag">linux</span>
+        <span class="tag">dotfiles</span>
+        <span class="tag">theming</span>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
+        <span class="term-title">hypr-themes -- bash</span>
+      </div>
+      <div class="term-body">
+        <div class="term-line"><span class="p">$</span> <span class="s">hypr-themes</span> <span class="c">list</span></div>
+        <div class="term-line"><span class="dim">&nbsp;&nbsp;- catppuccin-mocha</span></div>
+        <div class="term-line"><span class="dim">&nbsp;&nbsp;- nord-dark</span></div>
+        <div class="term-line"><span class="dim">&nbsp;&nbsp;* <span style="color:var(--ember)">ember-flow</span> (active)</span></div>
+        <div class="term-line" style="margin-top:.4rem"><span class="p">$</span> <span class="s">hypr-themes</span> <span class="c">apply</span> <span class="dim">hexov/my-theme</span></div>
+        <div class="term-line"><span class="s">&nbsp;&nbsp;done: configs updated</span></div>
+        <div class="term-line"><span class="s">&nbsp;&nbsp;done: theme applied</span><span class="term-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="s-label">// 04 — <span data-i18n="nav_contact">contact</span></div>
+  <div class="s-title" data-i18n="contact_title">find me here</div>
+  <div class="s-rule"></div>
+  <div class="reveal">
+    <a href="https://t.me/userhexov" target="_blank" class="contact-card">
+      <div class="tg-icon-wrap">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248-2.043 9.627c-.148.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L6.26 14.4l-2.963-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.535-.194 1.003.13.56 2.186z"/></svg>
+      </div>
+      <div class="contact-info">
+        <div class="label">TELEGRAM</div>
+        <div class="handle">@userhexov</div>
+      </div>
+    </a>
+    <p style="font-family:var(--mono);font-size:.78rem;color:var(--text-dim);margin-top:2rem;letter-spacing:.05em;" data-i18n="contact_sub">open to questions, collaboration, and cool linux ideas.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:.5rem;">
+    <span class="ember">hexov</span><span>·</span><span>portfolio 2025</span>
+  </div>
+  <div><span data-i18n="footer_txt">built with &hearts; and too many terminal windows</span></div>
+</footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+// ─── Loader ───
+(function(){
+  const loader  = document.getElementById('loader');
+  const numEl   = document.getElementById('pct-num');
+  const barEl   = document.getElementById('loader-bar');
+  const statEl  = document.getElementById('loader-status');
+  const wrap    = document.getElementById('page-wrap');
+
+  const steps = [
+    [0,  12, 'initializing...'],
+    [12, 35, 'loading assets'],
+    [35, 58, 'building particles'],
+    [58, 78, 'compiling shaders'],
+    [78, 92, 'mounting interface'],
+    [92, 100,'ready'],
+  ];
+
+  let pct = 0;
+  let stepIdx = 0;
+
+  function tick() {
+    const [from, to, label] = steps[stepIdx];
+    if (pct < to) {
+      pct += Math.random() * 3.2 + .8;
+      if (pct > to) pct = to;
+
+      // glitch digits occasionally
+      const display = Math.random() < .07
+        ? Math.floor(Math.random()*100)
+        : Math.floor(pct);
+      numEl.textContent = display;
+      barEl.style.width = pct + '%';
+
+      if (Math.floor(pct) >= from && statEl.textContent !== label)
+        statEl.textContent = label;
+
+      if (pct >= to) stepIdx++;
+    }
+
+    if (pct < 100) {
+      setTimeout(tick, 28 + Math.random()*30);
+    } else {
+      numEl.textContent = '100';
+      barEl.style.width = '100%';
+      statEl.textContent = 'ready';
+      // pause, then split
+      setTimeout(() => {
+        loader.classList.add('split');
+        setTimeout(() => {
+          loader.style.display = 'none';
+          wrap.classList.add('revealed');
+        }, 750);
+      }, 320);
+    }
+  }
+
+  // tiny delay so fonts load
+  setTimeout(tick, 180);
+})();
+
+// ─── i18n data ───
+const T = {
+  en: {
+    nav_about:'about', nav_stack:'stack', nav_projects:'projects', nav_contact:'contact',
+    hero_tag:'developer',
+    hero_greeting:'hi, i\'m',
+    hero_desc1:'system-level dev.',
+    hero_desc2:'building tools that make your',
+    hero_desc3:'linux setup',
+    hero_desc4:'feel like home.',
+    hero_btn1:'↳ see my work', hero_btn2:'get in touch',
+    hero_scroll:'scroll',
+    about_title:'who i am',
+    about_p1:'i\'m <span class="hl">hexov</span> — a developer with a passion for <span class="hl">system tools</span> and making linux environments more expressive and manageable.',
+    about_p2:'my focus is on software that sits close to the metal — <span class="hl">CLI tools</span>, TUI interfaces, automation scripts. i believe the terminal is a canvas.',
+    about_p3:'currently building <span class="hl">hypr.themes-utility</span> — a project aimed at unifying the fragmented world of linux visual configuration into one cohesive tool.',
+    about_p4:'also learning <span class="hl">Rust</span> because some things just need to be fast.',
+    stat1:'active project', stat2:'core languages', stat3:'dotfiles tweaked',
+    stack_title:'tools i use',
+    tag_primary:'primary', tag_learning:'learning',
+    proj_title:'what i build',
+    proj_status:'IN DEVELOPMENT',
+    proj_desc:'a unified theme management system for linux. control all your visual configs at once — create themes from scratch, switch and save them instantly, or share them directly from any github repository.',
+    feat_gui:'GUI interface', feat_tui:'TUI interface', feat_cli:'CLI interface',
+    feat_builder:'theme builder', feat_live:'live switching', feat_sync:'github sync',
+    contact_title:'find me here',
+    contact_sub:'open to questions, collaboration, and cool linux ideas.',
+    footer_txt:'built with \u2665 and too many terminal windows',
+    typing:['python enthusiast.','bash wizard.','linux nerd.','theme crafter.','rust learner.']
+  },
+  ru: {
+    nav_about:'обо мне', nav_stack:'стек', nav_projects:'проекты', nav_contact:'контакт',
+    hero_tag:'разработчик',
+    hero_greeting:'привет, я',
+    hero_desc1:'пишу системный код.',
+    hero_desc2:'делаю инструменты, которые превращают',
+    hero_desc3:'linux',
+    hero_desc4:'в нечто своё.',
+    hero_btn1:'↳ смотреть проекты', hero_btn2:'написать мне',
+    hero_scroll:'вниз',
+    about_title:'кто я',
+    about_p1:'я <span class="hl">hexov</span> — пишу инструменты для linux. люблю <span class="hl">системный уровень</span> и когда всё под контролем.',
+    about_p2:'cli, tui, скрипты автоматизации — моя зона. считаю, что <span class="hl">терминал</span> это и есть настоящий интерфейс.',
+    about_p3:'сейчас пишу <span class="hl">hypr.themes-utility</span> — хочу закрыть боль с разрозненными конфигами linux тем одним инструментом.',
+    about_p4:'параллельно учу <span class="hl">Rust</span> — потому что питон иногда медленный и это бесит.',
+    stat1:'активный проект', stat2:'основных языка', stat3:'дотфайлов настроено',
+    stack_title:'чем пользуюсь',
+    tag_primary:'основной', tag_learning:'учу',
+    proj_title:'что пишу',
+    proj_status:'В РАЗРАБОТКЕ',
+    proj_desc:'единый инструмент для управления темами linux. меняй все визуальные конфиги сразу — пиши темы с нуля, переключай на лету, сохраняй и делись ими через github.',
+    feat_gui:'GUI интерфейс', feat_tui:'TUI интерфейс', feat_cli:'CLI интерфейс',
+    feat_builder:'конструктор тем', feat_live:'переключение на лету', feat_sync:'синхронизация с github',
+    contact_title:'написать мне',
+    contact_sub:'открыт к вопросам, идеям и всему что связано с linux.',
+    footer_txt:'написано с \u2665 и слишком большим количеством открытых терминалов',
+    typing:['пишу на python.','bash — мой второй язык.','живу в терминале.','пилю темы для linux.','учу rust.']
+  }
+};
+
+let lang = 'en';
+let typingPhrases = T.en.typing;
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-ru').classList.toggle('active', l==='ru');
+  const d = T[l];
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (d[key] !== undefined) {
+      // Use innerHTML for about paragraphs that have spans
+      if (key.startsWith('about_p')) {
+        el.innerHTML = d[key];
+      } else {
+        el.textContent = d[key];
+      }
+    }
+  });
+
+  // Update glitch wrap text
+  const gw = document.getElementById('glitch-line');
+  const txt = d['hero_greeting'];
+  gw.textContent = txt;
+  gw.setAttribute('data-text', txt);
+
+  // Reset typing animation
+  typingPhrases = d.typing;
+  pi = 0; ci = 0; deleting = false;
+  document.getElementById('typing-text').textContent = '';
+}
+
+// ── Cursor ──
+const cur = document.getElementById('cur');
+const dot = document.getElementById('cur-dot');
+let mx = innerWidth/2, my = innerHeight/2;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+let cx = mx, cy = my;
+(function animCursor() {
+  cx += (mx - cx) * .18; cy += (my - cy) * .18;
+  cur.style.left = cx + 'px'; cur.style.top = cy + 'px';
+  requestAnimationFrame(animCursor);
+})();
+document.querySelectorAll('a,button,.stack-item,.feat,.tag').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// ── Particles ──
+const canvas = document.getElementById('particles-canvas');
+const pctx = canvas.getContext('2d');
+function resizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+const particles = [];
+const PCOLS = ['rgba(255,107,53,','rgba(124,58,237,','rgba(232,228,255,'];
+for (let i = 0; i < 70; i++) particles.push({
+  x: Math.random()*innerWidth, y: Math.random()*innerHeight,
+  vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+  r: Math.random()*1.5+.3, alpha: Math.random()*.4+.1,
+  color: PCOLS[Math.floor(Math.random()*PCOLS.length)]
+});
+let pmouse = {x:-999, y:-999};
+document.addEventListener('mousemove', e => { pmouse.x = e.clientX; pmouse.y = e.clientY; });
+(function drawP() {
+  pctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i) => {
+    p.x += p.vx; p.y += p.vy;
+    if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+    if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+    const dx=p.x-pmouse.x, dy=p.y-pmouse.y, dist=Math.sqrt(dx*dx+dy*dy);
+    if(dist<120) { p.x+=dx/dist*1.2; p.y+=dy/dist*1.2; }
+    pctx.beginPath(); pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    pctx.fillStyle = p.color+p.alpha+')'; pctx.fill();
+    for(let j=i+1;j<particles.length;j++){
+      const q=particles[j], d=Math.sqrt((p.x-q.x)**2+(p.y-q.y)**2);
+      if(d<100){pctx.beginPath();pctx.moveTo(p.x,p.y);pctx.lineTo(q.x,q.y);pctx.strokeStyle=`rgba(255,107,53,${(1-d/100)*.06})`;pctx.lineWidth=.5;pctx.stroke();}
+    }
+  });
+  requestAnimationFrame(drawP);
+})();
+
+// ── Typing ──
+let pi=0, ci=0, deleting=false;
+const typingEl = document.getElementById('typing-text');
+function type() {
+  const phrase = typingPhrases[pi];
+  if (!deleting) {
+    typingEl.textContent = phrase.slice(0, ci+1); ci++;
+    if (ci === phrase.length) { deleting=true; setTimeout(type, 2000); return; }
+  } else {
+    typingEl.textContent = phrase.slice(0, ci-1); ci--;
+    if (ci === 0) { deleting=false; pi=(pi+1)%typingPhrases.length; }
+  }
+  setTimeout(type, deleting ? 45 : 80);
+}
+setTimeout(type, 1200);
+
+// ── Scroll reveal ──
+document.querySelectorAll('.reveal').forEach(r => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, {threshold:.1}).observe(r);
+});
+
+// ── Stack bars animate on scroll ──
+const stackObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.stack-item').forEach((item, i) => {
+        setTimeout(() => {
+          item.style.opacity = '1';
+          item.style.transform = 'translateY(0)';
+          const bar = item.querySelector('.stack-bar-fill');
+          if (bar) bar.style.width = (item.dataset.w || 50) + '%';
+        }, i * 120);
+      });
+      stackObs.disconnect();
+    }
+  });
+}, {threshold:.1});
+const firstStack = document.querySelector('.stack-item');
+if (firstStack) stackObs.observe(firstStack);
+
+// ── Active nav ──
+const navSections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let c = '';
+  navSections.forEach(s => { if (scrollY >= s.offsetTop-200) c = s.id; });
+  navLinks.forEach(a => { a.style.color = a.getAttribute('href')==='#'+c ? 'var(--ember)' : ''; });
+});
+</script>
+</body>
+</html>
