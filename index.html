@@ -1,580 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Silent Hill — 2006</title>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Raleway:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KFC — Student Report 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;cursor:none!important}
-
 :root{
-  --white:#f0ede8;
-  --light:#d5d0c8;
-  --mid:#7a766e;
-  --dim:#3e3b36;
-  --black:#080807;
-  --panel:#0e0d0c;
-  --border:rgba(255,252,245,0.07);
-  --accent:rgba(200,195,185,0.9);
+  --red:#b41c2e;--red2:#7e1020;
+  --dark:#1b1818;--warm:#f3ede5;--sand:#e2d9ce;
+  --mid:#7b6f69;--light:#f9f6f2;--white:#ffffff;
+  --rule:rgba(27,24,24,.1);
 }
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--white);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--warm)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
 
-/* ═══ CURSOR ════════════════════════════════════ */
-.ch,.cv{position:fixed;pointer-events:none;z-index:9998;background:rgba(220,215,205,.85);box-shadow:0 0 5px rgba(220,215,205,.35);transition:opacity .18s}
-.ch{width:22px;height:1px;transform:translate(-50%,-50%)}
-.cv{width:1px;height:22px;transform:translate(-50%,-50%)}
-.cd{position:fixed;pointer-events:none;z-index:9999;width:3px;height:3px;background:#ccc8be;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 7px rgba(220,215,205,.65);transition:width .2s,height .2s,background .2s,border-radius .2s,border .2s,box-shadow .2s}
-.ch.hov,.cv.hov{opacity:0}
-.cd.hov{width:30px;height:30px;background:transparent;border:1px solid rgba(210,205,195,.5);box-shadow:0 0 18px rgba(210,205,195,.08)}
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:var(--white);border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:60px}
+.hd-left{display:flex;align-items:center;gap:14px}
+.hd-logo{width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:11px;letter-spacing:1px;color:var(--white)}
+.hd-title{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--dark)}
+nav{display:flex;gap:30px}
+nav a{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .18s}
+nav a:hover{color:var(--red)}
+.lang-wrap{display:flex;gap:4px}
+.lang-btn{background:none;border:1px solid var(--sand);color:var(--mid);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:5px 12px;border-radius:3px;cursor:pointer;transition:all .18s;text-transform:uppercase}
+.lang-btn.active{background:var(--red);border-color:var(--red);color:var(--white)}
+.lang-btn:hover:not(.active){border-color:var(--red);color:var(--red)}
 
-/* ═══ LOADER ════════════════════════════════════ */
-#loader{position:fixed;inset:0;z-index:9500;background:#040403;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transition:opacity .8s,visibility .8s}
-#loader.hidden{opacity:0;visibility:hidden}
-.ld-title{font-family:'Special Elite',serif;font-size:1.3rem;letter-spacing:.45em;text-transform:uppercase;animation:ldglow 2s ease-in-out infinite}
-@keyframes ldglow{0%,100%{color:rgba(255,252,245,.08)}50%{color:rgba(255,252,245,.55)}}
-.ld-track{width:180px;height:1px;background:rgba(255,252,245,.06);position:relative;overflow:hidden}
-.ld-fill{position:absolute;inset:0;width:0%;background:rgba(220,215,205,.65);transition:width .05s linear}
-.ld-pct{font-family:'Special Elite',serif;font-size:.6rem;letter-spacing:.35em;color:rgba(255,252,245,.22)}
+/* HERO */
+.hero{min-height:87vh;display:grid;grid-template-columns:1.05fr .95fr;position:relative;overflow:hidden}
+.hero-left{background:var(--red);display:flex;flex-direction:column;justify-content:flex-end;padding:68px 60px;position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(255,255,255,.04) 60px),repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(255,255,255,.04) 60px)}
+.hero-student{font-size:10px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:28px;line-height:1.6;position:relative;z-index:1}
+.hero-h1{font-family:'Playfair Display',serif;font-size:clamp(50px,7vw,94px);font-weight:900;line-height:.93;color:var(--white);position:relative;z-index:1}
+.hero-h1 em{display:block;font-style:italic;color:rgba(255,255,255,.32);font-size:.52em;margin-top:10px;letter-spacing:1px}
+.hero-tagline{margin-top:30px;font-size:13px;font-weight:300;line-height:1.8;color:rgba(255,255,255,.6);max-width:340px;position:relative;z-index:1}
+.hero-stats{display:flex;gap:40px;margin-top:52px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14);position:relative;z-index:1}
+.stat-n{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--white);line-height:1}
+.stat-l{font-size:10px;color:rgba(255,255,255,.4);letter-spacing:1px;margin-top:5px}
+.hero-right{background:var(--warm);display:flex;align-items:center;justify-content:center;position:relative}
+.hero-ring{width:270px;height:270px;border-radius:50%;border:1.5px solid var(--rule);display:flex;align-items:center;justify-content:center;position:relative}
+.hero-ring::before{content:'';position:absolute;inset:20px;border-radius:50%;border:1px solid var(--rule)}
+.ring-word{font-family:'Playfair Display',serif;font-size:78px;font-weight:900;color:var(--red);opacity:.12;line-height:1}
+.ring-est{position:absolute;bottom:-30px;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--mid)}
 
-/* ═══ CANVASES ══════════════════════════════════ */
-#particleCanvas{position:fixed;inset:0;pointer-events:none;z-index:1}
-#fogCanvas     {position:fixed;inset:0;pointer-events:none;z-index:2}
-#snowCanvas    {position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.4}
+/* WRAP */
+.wrap{max-width:1080px;margin:0 auto;padding:96px 40px}
 
-/* ═══ VIGNETTE ══════════════════════════════════ */
-.vignette{position:fixed;inset:0;pointer-events:none;z-index:4;
-  background:radial-gradient(ellipse 85% 80% at 50% 50%,transparent 30%,rgba(4,4,3,.55) 80%,rgba(4,4,3,.88) 100%)}
+/* LABELS / TITLES */
+.lbl{font-size:10px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--red);margin-bottom:12px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;line-height:1.1;color:var(--dark);margin-bottom:46px}
+.sec-title em{font-style:italic;color:var(--mid)}
 
-/* ═══ NAV ═══════════════════════════════════════ */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:20px 52px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(6,6,5,.92),rgba(6,6,5,.0));transition:background .4s}
-nav.solid{background:rgba(8,8,7,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
-.nav-brand{font-family:'Special Elite',serif;font-size:.9rem;letter-spacing:.3em;color:var(--light);text-transform:uppercase;position:relative}
-.nav-brand::after{content:'';position:absolute;bottom:-5px;left:0;width:100%;height:1px;background:linear-gradient(to right,var(--mid),transparent)}
-.nav-right{display:flex;align-items:center;gap:32px}
-.nav-links{display:flex;gap:30px}
-.nav-links a{font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .3s;position:relative;padding-bottom:3px}
-.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--light);transition:width .4s cubic-bezier(.23,1,.32,1)}
-.nav-links a:hover{color:var(--white)}
-.nav-links a:hover::after{width:100%}
-.lang-btn{font-family:'Special Elite',serif;font-size:.66rem;letter-spacing:.22em;border:1px solid rgba(255,252,245,.12);background:transparent;color:var(--mid);padding:5px 14px;display:flex;align-items:center;gap:7px;transition:border-color .3s,color .3s}
-.lang-btn:hover{border-color:rgba(255,252,245,.35);color:var(--white)}
-.lang-active{color:var(--white)!important}
-.lang-sep{opacity:.25}
+/* HISTORY */
+.hist-cols{display:grid;grid-template-columns:1.1fr 1fr;gap:72px}
+.prose p{font-size:15px;line-height:1.85;color:var(--mid);margin-bottom:18px;font-weight:300}
+.prose p strong{color:var(--dark);font-weight:500}
+.tl-row{display:grid;grid-template-columns:52px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--rule)}
+.tl-row:first-child{border-top:1px solid var(--rule)}
+.tl-yr{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--red);padding-top:2px}
+.tl-txt{font-size:13px;line-height:1.7;color:var(--mid)}
+hr.div{border:none;border-top:1px solid var(--rule);max-width:1080px;margin:0 auto}
 
-/* ═══ HERO ═══════════════════════════════════════ */
-.hero{position:relative;min-height:100vh;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:140px 10vw 90px;overflow:hidden}
+/* MENU */
+.menu-bg{background:var(--dark)}
+.menu-bg .lbl{color:rgba(255,255,255,.3)}
+.menu-bg .sec-title{color:var(--white)}
+.menu-bg .sec-title em{color:rgba(255,255,255,.22)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.m-card{background:#211d1d;padding:30px 26px;transition:background .2s;position:relative}
+.m-card:hover{background:#2a2424}
+.m-card.click{cursor:pointer}
+.m-hint{position:absolute;top:14px;right:18px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:600;opacity:0;transition:opacity .2s}
+.m-card.click:hover .m-hint{opacity:1}
+.m-num{font-family:'Playfair Display',serif;font-size:11px;font-weight:700;letter-spacing:3px;color:rgba(255,255,255,.16);margin-bottom:18px}
+.m-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--white);line-height:1.2;margin-bottom:9px}
+.m-desc{font-size:12px;color:rgba(255,255,255,.36);line-height:1.65}
+.m-price{display:inline-block;margin-top:18px;font-size:13px;font-weight:600;color:var(--red)}
 
-/* scan lines overlay */
-.hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);pointer-events:none;z-index:0}
+/* ORDER */
+.order-bg{background:var(--warm)}
+.order-inner{max-width:1080px;margin:0 auto;padding:92px 40px;text-align:center}
+.order-inner .lbl{display:block;margin-bottom:12px}
+.order-inner p{font-size:15px;color:var(--mid);max-width:420px;margin:0 auto 36px;line-height:1.7}
+.btn-order{background:var(--red);color:var(--white);border:none;font-family:'Playfair Display',serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:18px 58px;border-radius:3px;cursor:pointer;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 6px 28px rgba(180,28,46,.25)}
+.btn-order:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 10px 36px rgba(180,28,46,.35)}
+.toast{display:none;margin:28px auto 0;max-width:380px;background:var(--white);border-left:3px solid #2a7d3f;padding:15px 22px;border-radius:3px;font-size:14px;font-weight:500;color:#2a7d3f;letter-spacing:.3px;box-shadow:0 6px 24px rgba(0,0,0,.07);animation:slideUp .3s cubic-bezier(.22,1,.36,1) both}
+@keyframes slideUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-.lines-bg{position:absolute;inset:0;display:flex;justify-content:space-between;pointer-events:none;z-index:0}
-.vl{width:1px;height:100%;background:linear-gradient(to bottom,transparent,rgba(255,252,245,.03) 30%,rgba(255,252,245,.045) 50%,rgba(255,252,245,.03) 70%,transparent);animation:vlflick var(--d) ease-in-out infinite}
-@keyframes vlflick{0%,100%{opacity:1}50%{opacity:.1}}
+/* FAQ */
+.faq-inner{max-width:680px}
+.faq-item{border-bottom:1px solid var(--rule)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 0;cursor:pointer;user-select:none;font-size:15px;font-weight:500;color:var(--dark);transition:color .18s}
+.faq-q:hover{color:var(--red)}
+.faq-tog{width:24px;height:24px;border-radius:50%;border:1px solid var(--rule);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--mid);transition:all .2s;margin-left:20px;line-height:1}
+.faq-item.open .faq-tog{background:var(--red);border-color:var(--red);color:var(--white);transform:rotate(45deg)}
+.faq-a{display:none;font-size:13.5px;color:var(--mid);line-height:1.75;padding-bottom:18px}
+.faq-item.open .faq-a{display:block}
 
-.hero-eyebrow{font-size:.6rem;letter-spacing:.5em;text-transform:uppercase;color:var(--mid);margin-bottom:22px;display:flex;align-items:center;gap:14px;opacity:0;animation:fadeup .7s .3s forwards}
-.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--mid)}
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.25);text-align:center;padding:34px 40px;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+footer strong{color:rgba(255,255,255,.45)}
 
-.hero-title{font-family:'Special Elite',serif;font-size:clamp(4rem,11vw,9.5rem);line-height:.88;color:var(--white);letter-spacing:-.01em;text-shadow:0 0 80px rgba(200,195,185,.08);opacity:0;animation:fadeup 1s .5s forwards;position:relative;z-index:1}
-.hero-title em{display:block;font-style:italic;color:var(--mid);font-size:.42em;letter-spacing:.14em;margin-top:12px;text-shadow:none}
+/* MODAL */
+.overlay{position:fixed;inset:0;z-index:500;background:rgba(10,6,6,.7);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .25s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--white);border-radius:6px;max-width:620px;width:100%;max-height:88vh;overflow-y:auto;transform:translateY(18px) scale(.97);transition:transform .3s cubic-bezier(.22,1,.36,1);box-shadow:0 40px 80px rgba(0,0,0,.22)}
+.overlay.open .modal{transform:none}
+.modal-top{background:var(--red);padding:30px 34px;display:flex;justify-content:space-between;align-items:flex-start;border-radius:6px 6px 0 0}
+.modal-top h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--white);line-height:1.2}
+.modal-top small{display:block;font-size:11px;color:rgba(255,255,255,.45);margin-top:4px;letter-spacing:1px}
+.modal-x{background:rgba(255,255,255,.14);border:none;color:var(--white);font-size:15px;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s;flex-shrink:0;margin-left:18px}
+.modal-x:hover{background:rgba(255,255,255,.26)}
+.modal-body{padding:32px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:28px}
+.chip{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);border:1px solid var(--sand);border-radius:2px;padding:5px 11px}
+.msub{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--red);margin-bottom:14px;margin-top:24px}
+.ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.ing-row{background:var(--warm);border-radius:3px;padding:8px 13px;font-size:13px;color:var(--dark)}
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:14px}
+.snum{background:var(--red);color:var(--white);font-family:'Playfair Display',serif;font-size:12px;font-weight:700;min-width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stxt{font-size:13px;color:var(--mid);line-height:1.7}
 
-.hero-desc{margin-top:40px;font-size:.95rem;line-height:2;color:var(--mid);max-width:440px;opacity:0;animation:fadeup .9s .8s forwards;position:relative;z-index:1}
-.hero-rule{margin-top:52px;width:52px;height:1px;background:linear-gradient(to right,var(--mid),transparent);opacity:0;animation:fadeup .9s 1s forwards}
-
-@keyframes fadeup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-
-/* ═══ MARQUEE ═══════════════════════════════════ */
-.mq-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0;overflow:hidden;position:relative;z-index:10;background:rgba(6,6,5,.6);backdrop-filter:blur(8px)}
-.mq-track{display:flex;white-space:nowrap;animation:mqroll 32s linear infinite}
-.mq-item{display:inline-flex;align-items:center;gap:24px;padding-right:52px;font-family:'Special Elite',serif;font-size:1.1rem;color:var(--dim);letter-spacing:.07em;flex-shrink:0;transition:color .3s}
-.mq-item:hover{color:var(--mid)}
-.mq-dot{width:3px;height:3px;border-radius:50%;background:var(--dim);flex-shrink:0}
-@keyframes mqroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ═══ LAYOUT ════════════════════════════════════ */
-.wrap{position:relative;z-index:10;max-width:1100px;margin:0 auto;padding:0 6vw}
-section{padding:96px 0}
-.sec-hd{margin-bottom:52px}
-.sec-label{font-size:.58rem;font-weight:600;letter-spacing:.45em;text-transform:uppercase;color:var(--mid);display:flex;align-items:center;gap:14px;margin-bottom:16px}
-.sec-label::before{content:'';width:28px;height:1px;background:var(--mid)}
-h2{font-family:'Special Elite',serif;font-size:clamp(1.9rem,3.8vw,3rem);color:var(--white);line-height:1.15}
-
-.divider{height:1px;background:linear-gradient(to right,transparent,rgba(255,252,245,.08),transparent);margin:0 6vw}
-
-/* ═══ ABOUT ═════════════════════════════════════ */
-.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
-.about-text p{font-size:.93rem;line-height:2;color:#8a867e;margin-bottom:18px}
-.about-text p b{color:var(--light);font-weight:600}
-
-.info-box{border:1px solid var(--border);padding:36px;background:rgba(14,13,12,.7);position:relative;overflow:hidden}
-.info-box::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(to bottom,transparent,var(--mid),transparent)}
-.info-box-title{font-size:.6rem;font-weight:700;letter-spacing:.35em;text-transform:uppercase;color:var(--mid);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.info-row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid rgba(255,252,245,.03);font-size:.84rem}
-.info-row:last-child{border-bottom:none}
-.info-key{color:var(--mid)}
-.info-val{color:var(--light);text-align:right}
-
-/* ═══ PLOT ══════════════════════════════════════ */
-.plot-p{font-size:.95rem;line-height:2.05;color:#8a867e;max-width:720px}
-.plot-p b{color:var(--light)}
-
-.pull-quote{border-left:1px solid rgba(255,252,245,.2);padding:32px 44px;margin:64px 0;position:relative;background:linear-gradient(to right,rgba(255,252,245,.025),transparent)}
-.pull-quote::before{content:'\201C';position:absolute;top:-20px;left:36px;font-family:'Special Elite',serif;font-size:5rem;color:rgba(255,252,245,.06);line-height:1}
-.pull-quote p{font-family:'Special Elite',serif;font-size:clamp(1rem,2.2vw,1.4rem);color:var(--light);line-height:1.65;font-style:italic}
-.pull-quote span{display:block;margin-top:16px;font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mid)}
-
-/* ═══ CHARS ═════════════════════════════════════ */
-.chars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-
-.char-card{background:var(--panel);position:relative;overflow:hidden;opacity:0;transform:translateY(22px);transition:opacity .65s,transform .65s,border-color .3s;border:1px solid var(--border)}
-.char-card.visible{opacity:1;transform:translateY(0)}
-.char-card:hover{border-color:rgba(255,252,245,.18)}
-
-/* fog inside card that light disperses */
-.char-card > canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
-.char-inner{position:relative;z-index:4;padding:30px 26px}
-
-.char-name{font-family:'Special Elite',serif;font-size:1.05rem;color:var(--light);margin-bottom:6px;letter-spacing:.02em}
-.char-role{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
-.char-desc{font-size:.82rem;line-height:1.8;color:#696560}
-
-/* ═══ FACTS ═════════════════════════════════════ */
-.facts-list{list-style:none}
-.facts-list li{padding:18px 0;border-bottom:1px solid rgba(255,252,245,.05);font-size:.92rem;line-height:1.8;color:#8a867e;display:flex;gap:18px;opacity:0;transform:translateX(-18px);transition:opacity .55s,transform .55s}
-.facts-list li.visible{opacity:1;transform:translateX(0)}
-.fn{font-family:'Special Elite',serif;font-size:.68rem;color:var(--dim);min-width:22px;padding-top:3px}
-
-/* ═══ FOOTER ════════════════════════════════════ */
-footer{border-top:1px solid var(--border);padding:44px 6vw;text-align:center;position:relative;z-index:10;background:rgba(6,6,5,.8)}
-.ft-brand{font-family:'Special Elite',serif;font-size:1.8rem;color:var(--dim);letter-spacing:.3em;text-transform:uppercase;margin-bottom:12px}
-.ft-sub{font-size:.62rem;color:rgba(255,252,245,.15);letter-spacing:.18em;text-transform:uppercase;line-height:2}
-
-/* ═══ VIDEO STYLES (оставил, но убрал shield) ═══ */
-.video-wrap{width:100%;aspect-ratio:16/9;background:#000;border:1px solid var(--border);overflow:hidden;position:relative;transition:border-color .4s,box-shadow .4s}
-.video-wrap:hover{border-color:rgba(220,215,205,.45);box-shadow:0 0 0 1px rgba(220,215,205,.1),0 0 32px rgba(220,215,205,.08),0 0 80px rgba(220,215,205,.04)}
-video{width:100%;height:100%;display:block}
-.video-label{margin-top:12px;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);text-align:center}
-
-/* ═══ REVEAL ════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(34px);transition:opacity .85s,transform .85s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:768px){
-  .about-layout,.chars-grid{grid-template-columns:1fr}
-  nav .nav-links{display:none}
-  .hero{padding:110px 6vw 70px}
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .hist-cols{grid-template-columns:1fr;gap:48px}
+  .menu-grid{grid-template-columns:1fr 1fr}
+  .ing-grid{grid-template-columns:1fr}
+  header{padding:0 22px}
+  nav{display:none}
+  .wrap{padding:64px 22px}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="ld-title">Silent Hill</div>
-  <div class="ld-track"><div class="ld-fill" id="ldFill"></div></div>
-  <div class="ld-pct" id="ldPct">0%</div>
-</div>
-
-<!-- CURSOR -->
-<div class="ch" id="ch"></div>
-<div class="cv" id="cv"></div>
-<div class="cd" id="cd"></div>
-
-<!-- CANVASES -->
-<canvas id="particleCanvas"></canvas>
-<canvas id="fogCanvas"></canvas>
-<canvas id="snowCanvas"></canvas>
-
-<!-- VIGNETTE -->
-<div class="vignette"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <div class="nav-brand">Silent Hill</div>
-  <div class="nav-right">
-    <div class="nav-links">
-      <a href="#trailer"    data-i="nav_trailer">Trailer</a>
-      <a href="#about"      data-i="nav_about">About</a>
-      <a href="#plot"       data-i="nav_plot">Plot</a>
-      <a href="#characters" data-i="nav_chars">Characters</a>
-      <a href="#facts"      data-i="nav_facts">Facts</a>
-    </div>
-    <button class="lang-btn" onclick="toggleLang()">
-      <span id="lEN" class="lang-active">EN</span>
-      <span class="lang-sep">/</span>
-      <span id="lRU">RU</span>
-    </button>
+<header>
+  <div class="hd-left">
+    <div class="hd-logo">KFC</div>
+    <span class="hd-title" data-k="brand">Kentucky Fried Chicken</span>
   </div>
-</nav>
+  <nav>
+    <a href="#history" data-k="n1">History</a>
+    <a href="#menu"    data-k="n2">Menu</a>
+    <a href="#faq"     data-k="n3">FAQ</a>
+  </nav>
+  <div class="lang-wrap">
+    <button class="lang-btn active" onclick="setLang('en')">EN</button>
+    <button class="lang-btn"        onclick="setLang('ru')">RU</button>
+  </div>
+</header>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="lines-bg" id="linesBg"></div>
-  <p class="hero-eyebrow" data-i="hero_eyebrow">Horror Film · 2006</p>
-  <h1 class="hero-title">Silent Hill<em data-i="hero_sub">Directed by Christophe Gans</em></h1>
-  <p class="hero-desc" data-i="hero_desc">A mother drives into an abandoned town searching for her daughter. What she finds there is something the living were never meant to see.</p>
-  <div class="hero-rule"></div>
-</div>
-
-<!-- MARQUEE -->
-<div class="mq-wrap">
-  <div class="mq-track">
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq1">Silent Hill</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq2">Horror Film</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq3">2006</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq4">Christophe Gans</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq5">Based on Konami</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq6">Pyramid Head</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq7">Centralia · Pennsylvania</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq1">Silent Hill</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq2">Horror Film</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq3">2006</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq4">Christophe Gans</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq5">Based on Konami</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq6">Pyramid Head</span></span>
-    <span class="mq-item"><span class="mq-dot"></span><span data-i="mq7">Centralia · Pennsylvania</span></span>
+  <div class="hero-left">
+    <p class="hero-student" data-k="byline">Prepared by students of Grade 7-M &nbsp;|&nbsp; School Project 2026</p>
+    <h1 class="hero-h1">KFC<em data-k="h_sub">finger lickin' good</em></h1>
+    <p class="hero-tagline" data-k="h_tag">An overview of one of world's most famous fast-food chains — it's history, popular dishes, and the story behind the Colonel.</p>
+    <div class="hero-stats">
+      <div><div class="stat-n">27k+</div><div class="stat-l" data-k="s1">Restaurants</div></div>
+      <div><div class="stat-n">150+</div><div class="stat-l" data-k="s2">Countries</div></div>
+      <div><div class="stat-n">1930</div><div class="stat-l" data-k="s3">Founded</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-ring">
+      <span class="ring-word">KFC</span>
+      <span class="ring-est">Est. 1930</span>
+    </div>
   </div>
 </div>
 
-<!-- ABOUT -->
-<div class="wrap">
-  <section id="about">
-    <div class="sec-hd reveal">
-      <p class="sec-label">01</p>
-      <h2 data-i="about_title">About the Film</h2>
-    </div>
-    <div class="about-layout">
-      <div class="about-text reveal">
-        <p data-i="about_p1"><b>Silent Hill</b> is a horror film released in <b>2006</b>, directed by French filmmaker <b>Christophe Gans</b>. It is based on the iconic survival horror video game of the same name developed by Konami in 1999.</p>
-        <p data-i="about_p2">The story unfolds in a <b>fog-covered abandoned town</b> called Silent Hill somewhere in the United States. Ash drifts down from the sky like grey snow, streets are empty, and the silence is wrong in ways that are hard to describe.</p>
-        <p data-i="about_p3">What makes this film stand out is how it weaves a <b>story about a mother's love</b> through layers of genuine dread. It is not just about creatures and jump scares — it is about grief, guilt, and things that should have stayed buried.</p>
-        <p data-i="about_p4">The film stars <b>Radha Mitchell</b> as the mother Rose, alongside Sean Bean, Jodelle Ferland, and Laurie Holden.</p>
+<section id="history">
+  <div class="wrap">
+    <p class="lbl" data-k="hl">Brand History</p>
+    <h2 class="sec-title" data-k="ht">From a small roadside kitchen <em>to the whole world</em></h2>
+    <div class="hist-cols">
+      <div class="prose">
+        <p data-k="p1"><strong>Kentucky Fried Chicken</strong> was founded by Harland David Sanders, who is better known as the Colonel. He is a self-made man who achieved his greatest succes at the age of 65 years old. His story is one of hard work perseverance and a secret blend of 11 herbs and spices that nobody else know.</p>
+        <p data-k="p2">Sanders started with a modest gas station restaurant in Corbin, Kentucky. There he developed his unique pressure-frying method, that sealed in flavour and made his fried chicken unlike anything on the market at that time. The chain now operates in more then 150 countries across the globe.</p>
+        <p data-k="p3">In 1964 he sold the company for two million dollars, but his image stayed the face of KFC forever. Today the brand is one of the most recognisable fast food names in the world and it's still growing every year.</p>
       </div>
-      <div class="info-box reveal" style="transition-delay:.18s">
-        <p class="info-box-title" data-i="info_title">Film Info</p>
-        <div class="info-row"><span class="info-key" data-i="ik_title">Title</span><span class="info-val">Silent Hill</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_year">Year</span><span class="info-val">2006</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_dir">Director</span><span class="info-val">Christophe Gans</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_genre">Genre</span><span class="info-val" data-i="iv_genre">Horror / Mystery</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_country">Country</span><span class="info-val">France / Canada / USA</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_lang">Language</span><span class="info-val" data-i="iv_lang">English</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_dur">Duration</span><span class="info-val">125 <span data-i="iv_min">minutes</span></span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_based">Based on</span><span class="info-val" data-i="iv_based">Konami game (1999)</span></div>
-        <div class="info-row"><span class="info-key" data-i="ik_budget">Budget</span><span class="info-val">$50 000 000</span></div>
-      </div>
+      <div id="tlList"></div>
     </div>
-  </section>
+  </div>
+</section>
+
+<hr class="div">
+
+<div class="menu-bg" id="menu">
+  <div class="wrap">
+    <p class="lbl" data-k="ml">Top Popular Dishes</p>
+    <h2 class="sec-title" data-k="mt">The Colonel's <em>finest picks</em></h2>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- TRAILER (заменённый блок) -->
-<div class="wrap">
-  <section id="trailer">
-    <div class="sec-hd reveal">
-      <p class="sec-label">00</p>
-      <h2 data-i="trailer_title">Official Trailer</h2>
-    </div>
-    <div class="video-wrap reveal">
-      <video controls preload="metadata">
-        <source src="https://files.catbox.moe/cvl6jj.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-      </video>
-    </div>
-    <p class="video-label" data-i="trailer_label">Silent Hill — Official Theatrical Trailer, 2006</p>
-  </section>
+<div class="order-bg">
+  <div class="order-inner">
+    <span class="lbl" data-k="ol">Place Your Order</span>
+    <p data-k="od">Ready to try something delicious? Go ahead and place a order — we will handle everything else for you.</p>
+    <button class="btn-order" onclick="doOrder()"><span data-k="ob">Order Now</span></button>
+    <div class="toast" id="toast"><span data-k="ot">Order approved — please wait!</span></div>
+  </div>
 </div>
 
-<div class="wrap">
-  <section id="plot">
-    <div class="sec-hd reveal">
-      <p class="sec-label">02</p>
-      <h2 data-i="plot_title">What Is the Film About?</h2>
-    </div>
-    <p class="plot-p reveal" data-i="plot_p1">The film opens with <b>Rose Da Silva</b>, a mother desperate to understand why her adopted daughter <b>Sharon</b> sleepwalks and screams the name of a town — <b>Silent Hill</b> — night after night. Against her husband's warnings, Rose takes Sharon there herself.</p>
-    <br/>
-    <p class="plot-p reveal" style="transition-delay:.1s" data-i="plot_p2">On the way, their car crashes. Rose wakes up alone. <b>Sharon is gone.</b> The town is blanketed in ash and fog, the streets are empty, and something is deeply, fundamentally wrong with the air itself.</p>
-    <div class="pull-quote reveal">
-      <p data-i="quote_text">"What makes Silent Hill so unsettling is that you never feel safe. Every time the sirens sound, the world peels back like skin and something worse is underneath."</p>
-      <span data-i="quote_src">From personal notes while watching</span>
-    </div>
-    <p class="plot-p reveal" data-i="plot_p3">Rose soon discovers that Silent Hill carries a <b>terrible wound from the past</b> — a tragedy so violent it split the town between realities. When the darkness comes, monsters emerge, and Rose has to survive long enough to find her daughter and understand what this place wants from them.</p>
-    <br/>
-    <p class="plot-p reveal" style="transition-delay:.1s" data-i="plot_p4">The ending refuses to give easy answers. It is <b>not a happy resolution</b> and it lingers with you. The kind of film you keep thinking about the next day, turning it over, not quite sure what you saw.</p>
-  </section>
-</div>
-
-<div class="divider"></div>
-
-<!-- CHARACTERS и FACTS и FOOTER остаются без изменений (я их не трогал, они в твоём оригинале) -->
+<section id="faq">
+  <div class="wrap">
+    <p class="lbl" data-k="fl">Frequently Asked Questions</p>
+    <h2 class="sec-title" data-k="ft">FAQ</h2>
+    <div class="faq-inner" id="faqList"></div>
+  </div>
+</section>
 
 <footer>
-  <div class="ft-brand">Silent Hill</div>
-  <p class="ft-sub" data-i="footer_sub">English School Project — 7th Grade</p>
+  <strong>KFC — Kentucky Fried Chicken</strong>&nbsp;&nbsp;
+  <span data-k="foot">School project by Grade 7-M &nbsp;|&nbsp; 2026. For educational purposes only.</span>
 </footer>
 
+<div class="overlay" id="overlay" onclick="bgClose(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div>
+        <h3 data-k="mt2">Classic Cheeseburger</h3>
+        <small data-k="ms">Approximate KFC-style homemade recipe</small>
+      </div>
+      <button class="modal-x" onclick="closeModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="chips">
+        <span class="chip" data-k="c1">25 min</span>
+        <span class="chip" data-k="c2">1 serving</span>
+        <span class="chip" data-k="c3">Easy level</span>
+        <span class="chip" data-k="c4">Pan-fried</span>
+      </div>
+      <p class="msub" data-k="mi">Ingredients</p>
+      <div class="ing-grid" id="ingGrid"></div>
+      <p class="msub" data-k="mst">Steps</p>
+      <div class="steps" id="stepList"></div>
+    </div>
+  </div>
+</div>
+
 <script>
-// ТРАНСЛЯЦИИ И ВСЕ СКРИПТЫ ОСТАВЛЯЕМ КАК БЫЛИ (lang toggle, cursor, canvases, loader и т.д.)
-const T={
+const T = {
   en:{
-    nav_about:'About',nav_plot:'Plot',nav_chars:'Characters',nav_facts:'Facts',nav_trailer:'Trailer',
-    hero_eyebrow:'Horror Film · 2006',
-    hero_sub:'Directed by Christophe Gans',
-    hero_desc:'A mother drives into an abandoned town searching for her daughter. What she finds there is something the living were never meant to see.',
-    mq1:'Silent Hill',mq2:'Horror Film',mq3:'2006',mq4:'Christophe Gans',mq5:'Based on Konami',mq6:'Pyramid Head',mq7:'Centralia · Pennsylvania',
-    about_title:'About the Film',
-    about_p1:'<b>Silent Hill</b> is a horror film released in <b>2006</b>, directed by French filmmaker <b>Christophe Gans</b>. It is based on the iconic survival horror video game of the same name developed by Konami in 1999.',
-    about_p2:'The story unfolds in a <b>fog-covered abandoned town</b> called Silent Hill somewhere in the United States. Ash drifts down from the sky like grey snow, streets are empty, and the silence is wrong in ways that are hard to describe.',
-    about_p3:'What makes this film stand out is how it weaves a <b>story about a mother\'s love</b> through layers of genuine dread. It is not just about creatures and jump scares — it is about grief, guilt, and things that should have stayed buried.',
-    about_p4:'The film stars <b>Radha Mitchell</b> as the mother Rose, alongside Sean Bean, Jodelle Ferland, and Laurie Holden.',
-    info_title:'Film Info',ik_title:'Title',ik_year:'Year',ik_dir:'Director',ik_genre:'Genre',ik_country:'Country',ik_lang:'Language',ik_dur:'Duration',ik_based:'Based on',ik_budget:'Budget',
-    iv_genre:'Horror / Mystery',iv_lang:'English',iv_min:'minutes',iv_based:'Konami game (1999)',
-    plot_title:'What Is the Film About?',
-    plot_p1:'The film opens with <b>Rose Da Silva</b>, a mother desperate to understand why her adopted daughter <b>Sharon</b> sleepwalks and screams the name of a town — <b>Silent Hill</b> — night after night. Against her husband\'s warnings, Rose takes Sharon there herself.',
-    plot_p2:'On the way, their car crashes. Rose wakes up alone. <b>Sharon is gone.</b> The town is blanketed in ash and fog, the streets are empty, and something is deeply, fundamentally wrong with the air itself.',
-    quote_text:'"What makes Silent Hill so unsettling is that you never feel safe. Every time the sirens sound, the world peels back like skin and something worse is underneath."',
-    quote_src:'From personal notes while watching',
-    plot_p3:'Rose soon discovers that Silent Hill carries a <b>terrible wound from the past</b> — a tragedy so violent it split the town between realities. When the darkness comes, monsters emerge, and Rose has to survive long enough to find her daughter.',
-    plot_p4:'The ending refuses to give easy answers. It is <b>not a happy resolution</b> and it lingers with you. The kind of film you keep thinking about the next day.',
-    chars_title:'Main Characters',
-    role_rose:'Main Character',role_sharon:'The Daughter',role_chris:'The Father',role_cybil:'Police Officer',role_ph:'The Main Monster',role_dahlia:'Mysterious Woman',
-    desc_rose:'She is the main character and basically the whole film is about her looking for Sharon. She goes through a lot of crazy stuff and somehow keeps going. I think she is a good character.',
-    desc_sharon:'Sharon seems like a normal girl at the start but she is actually connected to the town in a really strange way. You understand it better closer to the end.',
-    desc_chris:'He spends most of the film trying to find Rose and Sharon from the outside. Honestly his parts are a bit boring compared to what Rose is going through.',
-    desc_cybil:'She follows Rose into the town thinking she is breaking the law. Then she gets stuck there too. She is pretty cool and I liked her a lot.',
-    desc_ph:'Giant metal triangle on his head. Huge knife. Does not talk. Every time he appears something terrible happens. He is genuinely terrifying.',
-    desc_dahlia:'A creepy woman who keeps appearing and saying strange things. I thought she was the villain at first but it is more complicated. Her story is actually really sad.',
-    facts_title:'Interesting Facts',
-    fact1:'Silent Hill was based on a video game but it was actually very faithful to the original story. Many fans of the game liked the film because it kept the same feeling of fear and mystery.',
-    fact2:'The town is inspired by a real place in Pennsylvania called Centralia, where a coal mine fire has been burning underground since 1962. Smoke and ash genuinely rise from the ground there to this day.',
-    fact3:'Director Christophe Gans spent years trying to get the rights to make this film because he was a huge fan of the original game. He wanted to do it properly.',
-    fact4:'Pyramid Head was so iconic from the game that the filmmakers included him even though his role in the original story was different. He became the image of the entire Silent Hill franchise.',
-    fact5:'The film cost around $50 million and earned about $100 million worldwide — a commercial success despite mixed reviews from critics.',
-    fact6:'A sequel, Silent Hill: Revelation, came out in 2012. Most people agreed it was significantly weaker than the original.',
-    footer_sub:'English School Project — 7th Grade',
-    trailer_title:'Official Trailer',trailer_label:'Silent Hill — Official Theatrical Trailer, 2006',
+    brand:"Kentucky Fried Chicken",
+    n1:"History",n2:"Menu",n3:"FAQ",
+    byline:"Prepared by students of Grade 7-M  |  School Project 2026",
+    h_sub:"finger lickin' good",
+    h_tag:"An overview of one of world's most famous fast-food chains — it's history, popular dishes, and the story behind the Colonel.",
+    s1:"Restaurants",s2:"Countries",s3:"Founded",
+    hl:"Brand History",ht:"From a small roadside kitchen — to the whole world",
+    p1:"Kentucky Fried Chicken was founded by Harland David Sanders, who is better known as the Colonel. He is a self-made man who achieved his greatest succes at the age of 65 years old. His story is one of hard work perseverance and a secret blend of 11 herbs and spices that nobody else know.",
+    p2:"Sanders started with a modest gas station restaurant in Corbin, Kentucky. There he developed his unique pressure-frying method, that sealed in flavour and made his fried chicken unlike anything on the market at that time. The chain now operates in more then 150 countries across the globe.",
+    p3:"In 1964 he sold the company for two million dollars, but his image stayed the face of KFC forever. Today the brand is one of the most recognisable fast food names in the world and it's still growing every year.",
+    ml:"Top Popular Dishes",mt:"The Colonel's finest picks",
+    ol:"Place Your Order",
+    od:"Ready to try something delicious? Go ahead and place a order — we will handle everything else for you.",
+    ob:"Order Now",ot:"Order approved — please wait!",
+    fl:"Frequently Asked Questions",ft:"FAQ",
+    foot:"School project by Grade 7-M  |  2026. For educational purposes only.",
+    mt2:"Classic Cheeseburger",ms:"Approximate KFC-style homemade recipe",
+    c1:"25 min",c2:"1 serving",c3:"Easy level",c4:"Pan-fried",
+    mi:"Ingredients",mst:"Steps",
+    tl:[
+      {y:"1930",t:"Sanders opens a small roadside diner in Corbin, Kentucky — pressure-frying chicken from a gas station kitchen."},
+      {y:"1952",t:"First franchise deal is signed in Salt Lake City. The Colonel personally travels accross the country to pitch his recipe."},
+      {y:"1964",t:"KFC is sold for $2 million. Sanders remains as a brand ambassador and his face becomes the icon of the chain."},
+      {y:"1971",t:"Heublein Inc. acquires KFC and begins a aggressive international expansion across Asia and Europe."},
+      {y:"1997",t:"KFC joins Tricon Global Restaurants — later renamed Yum! Brands, one of the world's biggest restaurant groups."},
+      {y:"2026",t:"Over 27,000 restaurants in 150+ countries. KFC continues to expand with digital ordering and new menu innovations."},
+    ],
+    dishes:[
+      {n:"Original Recipe",  d:"The legendary 11-herb-and-spice blend, pressure-fried to a deep golden finish.",                                     p:"369 ₽", click:false},
+      {n:"Zinger Burger",    d:"Crispy spiced chicken fillet with fresh lettuce and house mayo on a sesame bun.",                                     p:"419 ₽", click:false},
+      {n:"Chicken Bucket",   d:"Eight pieces of golden fried chicken — the ultimate sharing classic for any occasion.",                               p:"1 199 ₽",click:false},
+      {n:"Chicken Burger",   d:"Tender chicken breast with pickles and KFC sauce inside a soft brioche bun.",                                         p:"349 ₽", click:false},
+      {n:"Cheeseburger",     d:"Juicy beef patty with melted cheddar, fresh tomato and crispy pickles. Click to see the full recipe.",                p:"379 ₽", click:true },
+      {n:"Popcorn Chicken",  d:"Bite-sized crispy pieces served with a smoky dipping sauce — great as a snack.",                                     p:"299 ₽", click:false},
+    ],
+    faqs:[
+      {q:"Does KFC use real chicken?",         a:"Yes, KFC uses 100 percent real chicken. All pieces is made from whole muscle chicken and sourced from approved suppliers according to strict quality standards."},
+      {q:"What is the secret recipe?",         a:"The exact blend of 11 herbs and spices remains one of the most closely guarded trade secrets in the world. The recipe is kept in a vault in Louisville, Kentucky."},
+      {q:"Are there vegetarian options?",      a:"Yes, in many countrys KFC offers plant-based alternatives such as Beyond Fried Chicken and also several vegetarian sides."},
+      {q:"How many KFC locations are there?",  a:"As of 2026, KFC operates more than 27,000 restaurants in over 150 countries and territories around the world."},
+      {q:"Can I order KFC online?",            a:"Yes, KFC offer online ordering and delivery through it's official website and mobile app, as well as major food delivery platforms."},
+    ],
+    ings:["Ground beef patty (130g)","Cheddar cheese slice (1-2 pc)","Brioche bun (1 pc)","Iceberg lettuce (25g)","Tomato (2 slices)","Pickles (3-4 slices)","Mayonnaise (2 tbsp)","Ketchup (1 tbsp)","Mustard (1 tsp)","Salt and black pepper","Butter for the bun","Vegetable oil for frying"],
+    steps:["Season the beef patty with salt and black pepper on both sides. Let it rest for 5 minutes at room temperature.","Heat a pan over high heat with a little oil. Cook the patty 3-4 minutes on each side until a nice crust is formed.","In the last minute of cooking, place the cheddar slice on the patty and cover with a lid so the cheese melts fully.","Slice the brioche bun and butter both halves. Toast them cut-side down in the same pan for about 1 minute until golden.","Mix mayonnaise, ketchup and mustard to make the burger sauce. Spread it generously on both halves of the bun.","Build the burger: bottom bun — lettuce — tomato — beef patty with cheese — pickles — top bun. Serve immediately."],
   },
   ru:{
-    nav_about:'О фильме',nav_plot:'Сюжет',nav_chars:'Персонажи',nav_facts:'Факты',nav_trailer:'Трейлер',
-    hero_eyebrow:'Фильм ужасов · 2006',
-    hero_sub:'Режиссёр: Кристоф Ганс',
-    hero_desc:'Мать едет в заброшенный город на поиски дочери. То, что она там находит, живым видеть не положено.',
-    mq1:'Сайлент Хилл',mq2:'Фильм ужасов',mq3:'2006',mq4:'Кристоф Ганс',mq5:'По игре Konami',mq6:'Пирамидоголовый',mq7:'Централия · Пенсильвания',
-    about_title:'О фильме',
-    about_p1:'<b>Сайлент Хилл</b> — фильм ужасов <b>2006 года</b>, снятый французским режиссёром <b>Кристофом Гансом</b>. Основан на культовой видеоигре компании Konami (1999).',
-    about_p2:'Действие разворачивается в <b>покрытом туманом заброшенном городе</b> Сайлент Хилл в США. С неба сыплется серый пепел, улицы пусты, а тишина такая, что становится не по себе.',
-    about_p3:'Фильм выделяется тем, что через слои настоящего ужаса в нём прошита <b>история материнской любви</b>. Это не просто кино про монстров — это про горе, вину и вещи, которые лучше бы остались похороненными.',
-    about_p4:'В главной роли — <b>Рада Митчелл</b> (Роуз). Также снялись Шон Бин, Жодель Ферлан и Лори Холден.',
-    info_title:'Информация',ik_title:'Название',ik_year:'Год',ik_dir:'Режиссёр',ik_genre:'Жанр',ik_country:'Страна',ik_lang:'Язык',ik_dur:'Длительность',ik_based:'Основан на',ik_budget:'Бюджет',
-    iv_genre:'Ужасы / Мистика',iv_lang:'Английский',iv_min:'минут',iv_based:'Игра Konami (1999)',
-    plot_title:'О чём этот фильм?',
-    plot_p1:'Фильм начинается с <b>Роуз Да Силва</b> — матери, которая никак не может понять, почему её приёмная дочь <b>Шэрон</b> каждую ночь ходит во сне и кричит название города — <b>Сайлент Хилл</b>. Вопреки предупреждениям мужа, Роуз везёт её туда сама.',
-    plot_p2:'По дороге их машина попадает в аварию. Роуз приходит в себя одна. <b>Шэрон исчезла.</b> Город затянут пеплом и туманом, улицы пусты, и в самом воздухе что-то глубоко, фундаментально не так.',
-    quote_text:'«Сайлент Хилл тревожит тем, что ты никогда не чувствуешь себя в безопасности. Каждый раз, когда звучат сирены, мир отслаивается как кожа — и под ним что-то хуже.»',
-    quote_src:'Из личных заметок во время просмотра',
-    plot_p3:'Роуз постепенно узнаёт, что Сайлент Хилл несёт в себе <b>страшную рану из прошлого</b> — трагедию, расколовшую город между реальностями. Когда наступает темнота, появляются монстры, и Роуз должна выжить, чтобы найти дочь.',
-    plot_p4:'Концовка не даёт простых ответов. Это <b>не счастливый финал</b>, и он остаётся с тобой. Такой фильм, о котором думаешь на следующий день.',
-    chars_title:'Главные персонажи',
-    role_rose:'Главный персонаж',role_sharon:'Дочь',role_chris:'Отец',role_cybil:'Полицейский',role_ph:'Главный монстр',role_dahlia:'Загадочная женщина',
-    desc_rose:'Она главная героиня, и весь фильм — это её поиски Шэрон. Она проходит через кучу безумных вещей и при этом не сдаётся.',
-    desc_sharon:'Сначала Шэрон кажется обычной девочкой, но она связана с городом очень странным образом. Это становится понятно ближе к концу.',
-    desc_chris:'Большую часть фильма пытается найти Роуз и Шэрон снаружи. Честно говоря, его сцены немного скучноваты на фоне того, что переживает Роуз.',
-    desc_cybil:'Следует за Роуз в город, думая, что та нарушает закон. Потом сама застревает там. Она довольно крутая, мне очень понравилась.',
-    desc_ph:'Огромный металлический треугольник на голове. Огромный нож. Не говорит вообще. Каждый раз, когда появляется, случается что-то плохое.',
-    desc_dahlia:'Жуткая женщина, которая постоянно появляется и говорит странные вещи. Сначала я думал, что она злодей, но всё сложнее. Её история очень грустная.',
-    facts_title:'Интересные факты',
-    fact1:'Фильм основан на видеоигре, но очень верен оригиналу. Многим фанатам игры понравился фильм, потому что в нём сохранилось то же ощущение страха и тайны.',
-    fact2:'Город вдохновлён реальным местом в Пенсильвании — Централией, где с 1962 года горит подземный пожар. Дым и пепел реально выходят оттуда из-под земли и по сей день.',
-    fact3:'Режиссёр Кристоф Ганс годами добивался прав на экранизацию, потому что сам большой фанат игры. Он хотел сделать всё правильно.',
-    fact4:'Пирамидоголовый был настолько культовым, что его включили в фильм, хотя в оригинальной игре его роль была другой. Он стал лицом всей серии.',
-    fact5:'Фильм обошёлся примерно в 50 миллионов и собрал около 100 миллионов в мировом прокате — коммерческий успех, несмотря на смешанные отзывы критиков.',
-    fact6:'Сиквел Silent Hill: Revelation вышел в 2012 году. Большинство считает его значительно слабее оригинала.',
-    footer_sub:'Школьный проект по английскому — 7 класс',
-    trailer_title:'Официальный трейлер',trailer_label:'Сайлент Хилл — официальный трейлер, 2006',
+    brand:"Кентукки Фрайд Чикен",
+    n1:"История",n2:"Меню",n3:"FAQ",
+    byline:"Подготовлено учениками 7-М класса  |  Школьный проект 2026",
+    h_sub:"пальчики оближешь",
+    h_tag:"Обзор одного из самых известных брендов фастфуда в мире — история, популярные блюда и легенда о Полковнике.",
+    s1:"Ресторанов",s2:"Стран",s3:"Основан",
+    hl:"История бренда",ht:"От маленькой придорожной кухни — к целому миру",
+    p1:"Kentucky Fried Chicken основал Харланд Дэвид Сандерс, известный как Полковник. Это самоучка, который добился главного успеха в 65 лет. Его история — это труд, упорство и секретная смесь из 11 трав и специй, которую не знает больше никто.",
+    p2:"Сандерс начал с небольшого ресторана на заправочной станции в Корбине, штат Кентукки. Там он разработал метод жарки под давлением, который сохранял аромат и делал курицу ни на что не похожей. Сегодня сеть работает более чем в 150 странах мира.",
+    p3:"В 1964 году он продал компанию за два миллиона долларов, но его образ навсегда остался лицом KFC. Сегодня это один из самых узнаваемых брендов фастфуда в мире, и он продолжает расти.",
+    ml:"Топ популярных блюд",mt:"Лучшие блюда Полковника",
+    ol:"Сделать заказ",
+    od:"Готовы попробовать что-нибудь вкусное? Смело оформляйте заказ — мы позаботимся обо всём остальном.",
+    ob:"Заказать",ot:"Заказ одобрен — ожидайте!",
+    fl:"Часто задаваемые вопросы",ft:"FAQ",
+    foot:"Школьный проект учеников 7-М класса  |  2026. Только в учебных целях.",
+    mt2:"Классический чизбургер",ms:"Приблизительный рецепт в стиле KFC",
+    c1:"25 мин",c2:"1 порция",c3:"Лёгкий",c4:"На сковороде",
+    mi:"Ингредиенты",mst:"Приготовление",
+    tl:[
+      {y:"1930",t:"Сандерс открывает небольшую закусочную в Корбине, Кентукки — жарит курицу на кухне при заправке."},
+      {y:"1952",t:"Подписывается первый франчайзинговый договор в Солт-Лейк-Сити. Полковник лично объезжает страну и продаёт рецепт."},
+      {y:"1964",t:"KFC продан за 2 миллиона долларов. Сандерс остаётся послом бренда, его образ становится символом сети."},
+      {y:"1971",t:"Heublein Inc. приобретает KFC и начинает активную международную экспансию в Азию и Европу."},
+      {y:"1997",t:"KFC входит в Tricon Global Restaurants — впоследствии переименованную в Yum! Brands."},
+      {y:"2026",t:"Более 27 000 ресторанов в 150+ странах. KFC развивает цифровые заказы и новые позиции в меню."},
+    ],
+    dishes:[
+      {n:"Оригинальный рецепт", d:"Легендарная смесь из 11 трав и специй, обжаренная под давлением до золотистой корочки.",                        p:"369 ₽",  click:false},
+      {n:"Зингер Бургер",       d:"Острое куриное филе с хрустящей корочкой, листьями салата и соусом на булочке с кунжутом.",                     p:"419 ₽",  click:false},
+      {n:"Корзинка курицы",     d:"Восемь кусочков золотистой жареной курицы — классика для большой компании.",                                     p:"1 199 ₽",click:false},
+      {n:"Чикн Бургер",         d:"Нежное куриное филе с огурцами и соусом KFC в мягкой булочке бриошь.",                                           p:"349 ₽",  click:false},
+      {n:"Чизбургер",           d:"Сочная котлета с расплавленным чеддером, помидором и огурцами. Нажмите, чтобы увидеть рецепт.",                  p:"379 ₽",  click:true },
+      {n:"Попкорн Чикен",       d:"Хрустящие кусочки курицы с дымным соусом для макания — отличная закуска.",                                       p:"299 ₽",  click:false},
+    ],
+    faqs:[
+      {q:"В KFC используют настоящую курицу?",       a:"Да, KFC использует 100% настоящую курицу. Все кусочки приготовлены из цельного мяса птицы от проверенных поставщиков согласно строгим стандартам качества."},
+      {q:"Что такое секретный рецепт?",              a:"Точный состав 11 трав и специй — одна из самых охраняемых коммерческих тайн в мире. Рецепт хранится в сейфе в Луисвилле, штат Кентукки."},
+      {q:"Есть ли вегетарианские блюда?",            a:"Да, во многих странах KFC предлагает растительные альтернативы — например Beyond Fried Chicken — и различные вегетарианские гарниры."},
+      {q:"Сколько ресторанов KFC в мире?",           a:"По состоянию на 2026 год, KFC работает более чем в 27 000 ресторанах в свыше 150 странах и территориях по всему миру."},
+      {q:"Можно ли заказать KFC онлайн?",            a:"Да, KFC предлагает онлайн-заказ и доставку через официальный сайт и приложение, а также через крупные платформы доставки еды."},
+    ],
+    ings:["Котлета из говядины (130г)","Слайс чеддера (1-2 шт)","Булочка бриошь (1 шт)","Листья айсберга (25г)","Помидор (2 кружочка)","Маринованные огурцы (3-4 шт)","Майонез (2 ст.л.)","Кетчуп (1 ст.л.)","Горчица (1 ч.л.)","Соль и чёрный перец","Сливочное масло для булочки","Растительное масло для жарки"],
+    steps:["Щедро посолите и поперчите котлету с обеих сторон. Дайте ей полежать 5 минут при комнатной температуре.","Разогрейте сковороду на сильном огне с небольшим количеством масла. Жарьте котлету по 3-4 минуты с каждой стороны до образования корочки.","В последнюю минуту положите сыр на котлету и накройте крышкой — чтобы он полностью расплавился.","Разрежьте булочку и смажьте срезы сливочным маслом. Поджарьте на той же сковороде около 1 минуты до золотистого цвета.","Смешайте майонез, кетчуп и горчицу — это ваш соус. Нанесите его на обе половинки булочки.","Сборка: нижняя булочка — салат — помидор — котлета с сыром — огурцы — верхняя булочка. Подавайте сразу горячим."],
   }
 };
+
 let lang='en';
-function applyLang(){
-  document.querySelectorAll('[data-i]').forEach(el=>{const v=T[lang][el.getAttribute('data-i')];if(v!==undefined)el.innerHTML=v;});
-  document.getElementById('lEN').className=lang==='en'?'lang-active':'';
-  document.getElementById('lRU').className=lang==='ru'?'lang-active':'';
-  document.documentElement.lang=lang;
+
+function renderTimeline(){
+  document.getElementById('tlList').innerHTML=
+    T[lang].tl.map(r=>`<div class="tl-row"><span class="tl-yr">${r.y}</span><span class="tl-txt">${r.t}</span></div>`).join('');
 }
-function toggleLang(){lang=lang==='en'?'ru':'en';applyLang();}
-
-/* CURSOR */
-const CH=document.getElementById('ch'),CV=document.getElementById('cv'),CD=document.getElementById('cd');
-let mx=window.innerWidth/2,my=window.innerHeight/2;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  CH.style.left=mx+'px';CH.style.top=my+'px';
-  CV.style.left=mx+'px';CV.style.top=my+'px';
-  CD.style.left=mx+'px';CD.style.top=my+'px';
-});
-function setHov(on){CH.classList.toggle('hov',on);CV.classList.toggle('hov',on);CD.classList.toggle('hov',on);}
-document.querySelectorAll('a,button,.char-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>setHov(true));
-  el.addEventListener('mouseleave',()=>setHov(false));
-});
-
-/* PARTICLES, FOG, SNOW, FLASHLIGHTS, LINES, NAV SCROLL, REVEAL, LOADER — оставляем как было, они работают */
-(function(){
-  const c=document.getElementById('particleCanvas'),ctx=c.getContext('2d');
-  let W,H,pts=[];
-  function mkP(){return{x:Math.random()*W,y:Math.random()*H,r:Math.random()*.8+.15,vx:(Math.random()-.5)*.12,vy:(Math.random()-.5)*.09,a:Math.random()*.35+.05,da:(Math.random()-.5)*.0025};}
-  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;pts=Array.from({length:90},mkP);}
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    pts.forEach(p=>{
-      p.x+=p.vx;p.y+=p.vy;p.a+=p.da;
-      if(p.a<.03||p.a>.45)p.da*=-1;
-      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(180,175,165,${p.a})`;ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',resize);resize();draw();
-})();
-
-(function(){
-  const c=document.getElementById('fogCanvas'),ctx=c.getContext('2d');
-  let W,H,wisps=[];
-  function mkWisp(){return{x:Math.random()*W,y:Math.random()*H,r:120+Math.random()*180,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.12,a:Math.random()*.18+.06,da:(Math.random()-.5)*.0008,wb:Math.random()*Math.PI*2,ws:Math.random()*.003+.001,wr:18+Math.random()*30};}
-  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;wisps=Array.from({length:22},mkWisp);}
-  const LIGHT_R=160;
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    wisps.forEach(w=>{
-      w.wb+=w.ws;w.x+=w.vx+Math.cos(w.wb)*0.15;w.y+=w.vy+Math.sin(w.wb*0.7)*0.1;w.a+=w.da;
-      if(w.a<.03||w.a>.24)w.da*=-1;
-      if(w.x<-w.r)w.x=W+w.r;if(w.x>W+w.r)w.x=-w.r;
-      if(w.y<-w.r)w.y=H+w.r;if(w.y>H+w.r)w.y=-w.r;
-      const dx=w.x-mx,dy=w.y-my,dist=Math.sqrt(dx*dx+dy*dy);
-      const disperse=Math.max(0,1-(Math.max(0,dist-LIGHT_R*0.3)/(LIGHT_R*1.4)));
-      const alpha=w.a*(1-disperse*0.95);
-      if(alpha<.005)return;
-      const g=ctx.createRadialGradient(w.x,w.y,0,w.x,w.y,w.r);
-      g.addColorStop(0,`rgba(170,168,160,${alpha})`);
-      g.addColorStop(.45,`rgba(130,128,122,${alpha*.55})`);
-      g.addColorStop(1,'rgba(100,98,94,0)');
-      ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,Math.PI*2);
-      ctx.fillStyle=g;ctx.fill();
-    });
-    const veil=ctx.createRadialGradient(mx,my,0,mx,my,LIGHT_R*1.8);
-    veil.addColorStop(0,'rgba(8,8,7,0)');
-    veil.addColorStop(.5,'rgba(8,8,7,0)');
-    veil.addColorStop(.75,'rgba(8,8,7,0.18)');
-    veil.addColorStop(1,'rgba(8,8,7,0.38)');
-    ctx.fillStyle=veil;ctx.fillRect(0,0,W,H);
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',resize);resize();draw();
-})();
-
-(function(){
-  const c=document.getElementById('snowCanvas'),ctx=c.getContext('2d');
-  let W,H,fl=[];
-  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  for(let i=0;i<75;i++)fl.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.2+.2,s:Math.random()*.28+.07,d:(Math.random()-.5)*.14,o:Math.random()*.28+.04,wb:Math.random()*Math.PI*2,ws:Math.random()*.006+.002});
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    fl.forEach(f=>{
-      f.wb+=f.ws;f.x+=f.d+Math.sin(f.wb)*.22;f.y+=f.s;
-      if(f.y>H+4){f.y=-4;f.x=Math.random()*W;}
-      if(f.x>W+4)f.x=-4;if(f.x<-4)f.x=W+4;
-      ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(210,208,200,${f.o})`;ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-})();
-
-function initFlashlights(){
-  const R=75;
-  document.querySelectorAll('.char-card').forEach(card=>{
-    const cv=card.querySelector('canvas');
-    if(!cv)return;
-    const ctx=cv.getContext('2d');
-    let active=false,lx=0,ly=0,tx=0,ty=0;
-    function resize(){cv.width=card.offsetWidth;cv.height=card.offsetHeight;}
-    resize();new ResizeObserver(resize).observe(card);
-    const cw=[...Array(4)].map(()=>({
-      x:Math.random()*200,y:Math.random()*200,
-      r:40+Math.random()*30,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.2,
-      a:Math.random()*.2+.08,wb:Math.random()*Math.PI*2,ws:.005+Math.random()*.004,wr:8+Math.random()*10
-    }));
-    function render(){
-      const W=cv.width,H=cv.height;
-      ctx.clearRect(0,0,W,H);
-      cw.forEach(w=>{
-        w.wb+=w.ws;w.x+=w.vx+Math.cos(w.wb)*.15;w.y+=w.vy+Math.sin(w.wb*.8)*.12;
-        if(w.x<-w.r)w.x=W+w.r;if(w.x>W+w.r)w.x=-w.r;
-        if(w.y<-w.r)w.y=H+w.r;if(w.y>H+w.r)w.y=-w.r;
-        let alpha=w.a;
-        if(active){const dx=w.x-lx,dy=w.y-ly,d=Math.sqrt(dx*dx+dy*dy);alpha*=Math.min(1,Math.max(0,(d-R*.2)/(R*1.2)));}
-        if(alpha<.01)return;
-        const g=ctx.createRadialGradient(w.x,w.y,0,w.x,w.y,w.r);
-        g.addColorStop(0,`rgba(150,148,142,${alpha})`);
-        g.addColorStop(1,'rgba(100,98,94,0)');
-        ctx.beginPath();ctx.arc(w.x,w.y,w.r,0,Math.PI*2);
-        ctx.fillStyle=g;ctx.fill();
-      });
-      ctx.save();
-      ctx.fillStyle='rgba(6,6,5,0.93)';
-      ctx.fillRect(0,0,W,H);
-      if(active){
-        lx+=(tx-lx)*.13;ly+=(ty-ly)*.13;
-        ctx.globalCompositeOperation='destination-out';
-        const g=ctx.createRadialGradient(lx,ly,0,lx,ly,R);
-        g.addColorStop(0,'rgba(0,0,0,1)');
-        g.addColorStop(.3,'rgba(0,0,0,1)');
-        g.addColorStop(.65,'rgba(0,0,0,.7)');
-        g.addColorStop(.88,'rgba(0,0,0,.2)');
-        g.addColorStop(1,'rgba(0,0,0,0)');
-        ctx.beginPath();ctx.arc(lx,ly,R,0,Math.PI*2);
-        ctx.fillStyle=g;ctx.fill();
-        ctx.globalCompositeOperation='source-over';
-        const glow=ctx.createRadialGradient(lx,ly,R*.3,lx,ly,R*1.6);
-        glow.addColorStop(0,'rgba(200,195,175,0.06)');
-        glow.addColorStop(.5,'rgba(180,175,155,0.03)');
-        glow.addColorStop(1,'rgba(0,0,0,0)');
-        ctx.beginPath();ctx.arc(lx,ly,R*1.6,0,Math.PI*2);
-        ctx.fillStyle=glow;ctx.fill();
-      }
-      ctx.restore();
-      requestAnimationFrame(render);
-    }
-    card.addEventListener('mouseenter',()=>active=true);
-    card.addEventListener('mouseleave',()=>active=false);
-    card.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();tx=e.clientX-r.left;ty=e.clientY-r.top;});
-    render();
+function renderMenu(){
+  document.getElementById('menuGrid').innerHTML=
+    T[lang].dishes.map((d,i)=>`
+      <div class="m-card${d.click?' click':''}"${d.click?' onclick="openModal()"':''}>
+        ${d.click?`<span class="m-hint">${lang==='ru'?'Рецепт':'Recipe'}</span>`:''}
+        <div class="m-num">0${i+1}</div>
+        <div class="m-name">${d.n}</div>
+        <div class="m-desc">${d.d}</div>
+        <div class="m-price">${d.p}</div>
+      </div>`).join('');
+}
+function renderFaq(){
+  const el=document.getElementById('faqList');
+  el.innerHTML=T[lang].faqs.map(f=>`
+    <div class="faq-item">
+      <div class="faq-q">${f.q}<span class="faq-tog">+</span></div>
+      <div class="faq-a">${f.a}</div>
+    </div>`).join('');
+  el.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+}
+function renderModal(){
+  document.getElementById('ingGrid').innerHTML=T[lang].ings.map(i=>`<div class="ing-row">${i}</div>`).join('');
+  document.getElementById('stepList').innerHTML=T[lang].steps.map((s,i)=>`<div class="step"><span class="snum">${i+1}</span><span class="stxt">${s}</span></div>`).join('');
+}
+function applyKeys(){
+  document.querySelectorAll('[data-k]').forEach(el=>{
+    const v=T[lang][el.dataset.k];
+    if(v!==undefined) el.textContent=v;
   });
 }
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent===l.toUpperCase()));
+  applyKeys();renderTimeline();renderMenu();renderFaq();renderModal();
+}
+function doOrder(){
+  const t=document.getElementById('toast');
+  t.style.display='block';t.style.animation='none';
+  void t.offsetWidth;t.style.animation='slideUp .3s cubic-bezier(.22,1,.36,1) both';
+  t.querySelector('span').textContent=T[lang].ot;
+}
+function openModal(){renderModal();document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(){document.getElementById('overlay').classList.remove('open');document.body.style.overflow=''}
+function bgClose(e){if(e.target===document.getElementById('overlay'))closeModal()}
 
-const lb=document.getElementById('linesBg');
-for(let i=0;i<20;i++){const l=document.createElement('div');l.className='vl';l.style.setProperty('--d',(3+Math.random()*7)+'s');l.style.animationDelay=(Math.random()*5)+'s';lb.appendChild(l);}
-
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('solid',window.scrollY>60));
-
-const io=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*55);});
-},{threshold:.1});
-document.querySelectorAll('.reveal,.char-card,.facts-list li').forEach(el=>io.observe(el));
-
-const ldFill=document.getElementById('ldFill'),ldPct=document.getElementById('ldPct');
-let prog=0;
-const ldT=setInterval(()=>{
-  prog+=Math.random()*4+1;
-  if(prog>=100){prog=100;clearInterval(ldT);ldFill.style.width='100%';ldPct.textContent='100%';setTimeout(()=>document.getElementById('loader').classList.add('hidden'),500);}
-  ldFill.style.width=prog+'%';ldPct.textContent=Math.floor(prog)+'%';
-},60);
-
-document.addEventListener('DOMContentLoaded',initFlashlights);
+applyKeys();renderTimeline();renderMenu();renderFaq();renderModal();
 </script>
 </body>
 </html>
